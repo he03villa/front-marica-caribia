@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    urlApi: 'http://127.0.0.1:8000/api/',
+    urlApi: 'https://api-marina-caribia-production.up.railway.app/api/',
     api: {
         boleta_servicio: {
             name: 'boletas_servicios',
