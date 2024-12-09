@@ -1,0 +1,188 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="col-12">
+            <h1>Crear Boleta</h1>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>MOTONAVE</mat-label>
+                <mat-select formControlName="moto_nave">
+                    @for (item of arrayMotonaves; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El moto nave es requerida',
+                    control: form.controls['moto_nave'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>DESTINO</mat-label>
+                <mat-select formControlName="destino">
+                    @for (item of arrayDestino; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El moto nave es requerida',
+                    control: form.controls['destino'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>AGENCIA</mat-label>
+                <mat-select formControlName="agencia">
+                    @for (item of arrayAgencias; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La agencia es requerida',
+                    control: form.controls['agencia'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>EMBARCACIÓN</mat-label>
+                <mat-select formControlName="embarcacion">
+                    @for (item of arrayEmbarcaciones; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La embarcacion es requerida',
+                    control: form.controls['embarcacion'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>PILOTO PRÁCTICO</mat-label>
+                <mat-select formControlName="piloto">
+                    @for (item of arrayPilotos; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El piloto es requerida',
+                    control: form.controls['piloto'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>TIPO DE SERVICIO</mat-label>
+                <mat-select formControlName="servicio">
+                    @for (item of arrayServicios; track $index) {
+                        <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El servicio es requerida',
+                    control: form.controls['servicio'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>FECHA INICIO</mat-label>
+                <input matInput [matDatepicker]="picker_inicio" formControlName="fecha_inicio">
+                <mat-datepicker-toggle matIconSuffix [for]="picker_inicio"></mat-datepicker-toggle>
+                <mat-datepicker #picker_inicio></mat-datepicker>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La fecha de inicio es requerida',
+                    control: form.controls['fecha_inicio'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>HORA INCIO</mat-label>
+                <input matInput [ngxTimepicker]="hora_inicio" formControlName="hora_inicio">
+                <ngx-material-timepicker #hora_inicio [format]="24"></ngx-material-timepicker>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La fecha de final es requerida',
+                    control: form.controls['hora_inicio'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>FECHA FIN</mat-label>
+                <input matInput [matDatepicker]="picker_final" formControlName="fecha_final">
+                <mat-datepicker-toggle matIconSuffix [for]="picker_final"></mat-datepicker-toggle>
+                <mat-datepicker #picker_final></mat-datepicker>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La fecha de final es requerida',
+                    control: form.controls['fecha_final'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>HORA FIN</mat-label>
+                <input matInput [ngxTimepicker]="hora_final" formControlName="hora_final">
+                <ngx-material-timepicker #hora_final [format]="24"></ngx-material-timepicker>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La fecha de final es requerida',
+                    control: form.controls['hora_final'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>OBSERVACIÓN</mat-label>
+                <textarea matInput formControlName="observaciones"></textarea>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La observación es requerida',
+                    control: form.controls['observaciones'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <div class="btn-content">
+                <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="guardar($event)">Guardar</button>
+                <button mat-flat-button color="warn" (click)="_service.url('/dashboard/boleta-servicio/')">Cancelar</button>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <ng-container>
+            <div class="fv-plugins-message-container">
+                <!-- [ngClass]="clase" -->
+                <span role="alert">
+                {{ message }}
+                </span>
+            </div>
+        </ng-container>
+    }
+</ng-template>

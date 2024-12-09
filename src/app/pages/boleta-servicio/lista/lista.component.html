@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Boletas de Servicio</h1>
+      </div>
+      <div class="col-12">
+        <button mat-flat-button color="primary" (click)="_service.url('/dashboard/boleta-servicio/create')">Crear Boleta</button>
+      </div>
+    </div>
+    <table mat-table matSort [dataSource]="dataSource">
+    
+        <!-- Position Column -->
+        <ng-container matColumnDef="fecha_salida">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Fecha Salida </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_salida}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="hora_salida">
+          <th mat-header-cell *matHeaderCellDef> Hora Salida </th>
+          <td mat-cell *matCellDef="let element"> {{element.hora_salida}} </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="fecha_regreso">
+          <th mat-header-cell *matHeaderCellDef> Fecha Regreso </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_regreso}} </td>
+        </ng-container>
+    
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="hora_regreso">
+          <th mat-header-cell *matHeaderCellDef> Hora Regreso </th>
+          <td mat-cell *matCellDef="let element"> {{element.hora_regreso}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="duracion">
+          <th mat-header-cell *matHeaderCellDef> Duracion </th>
+          <td mat-cell *matCellDef="let element"> {{element.duracion}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="lancha">
+          <th mat-header-cell *matHeaderCellDef> Lancha </th>
+          <td mat-cell *matCellDef="let element"> {{element.lancha}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="destino">
+          <th mat-header-cell *matHeaderCellDef> Destino </th>
+          <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="piloto">
+          <th mat-header-cell *matHeaderCellDef> Piloto </th>
+          <td mat-cell *matCellDef="let element"> {{element.piloto}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="motonave">
+          <th mat-header-cell *matHeaderCellDef> Motonave </th>
+          <td mat-cell *matCellDef="let element"> {{element.motonave}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="servicio">
+          <th mat-header-cell *matHeaderCellDef> Servicio </th>
+          <td mat-cell *matCellDef="let element"> {{element.servicio}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="pdf">
+          <th mat-header-cell *matHeaderCellDef> PDF </th>
+          <td mat-cell *matCellDef="let element"> 
+            <i class="fa-solid fa-file-pdf" (click)="descargarPdf(element.id)"></i>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements"
+                     [pageSize]="10"
+                     [length]="resultsLength">
+      </mat-paginator>
+
+</div>
