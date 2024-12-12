@@ -31,6 +31,7 @@ export class FormBoletaServicioComponent {
   arrayEmbarcaciones: Array<any> = [];
   arrayPilotos: Array<any> = [];
   arrayServicios: Array<any> = [];
+  arrayTrabajadores: Array<any> = [];
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -50,6 +51,7 @@ export class FormBoletaServicioComponent {
       hora_inicio: [data?.hora_inicio, Validators.compose([Validators.required])],
       fecha_final: [data?.fecha_final, Validators.compose([Validators.required])],
       hora_final: [data?.hora_final, Validators.compose([Validators.required])],
+      trabajadores: [data?.trabajadores, Validators.compose([Validators.required])],
       observaciones: [data?.observacion, Validators.compose([Validators.required])],
     });
   }
@@ -63,12 +65,14 @@ export class FormBoletaServicioComponent {
       this.arrayDestino = res.puertosDestinos;
       this.arrayPilotos = res.pilotos;
       this.arrayServicios = res.servicios;
+      this.arrayTrabajadores = res.trabajador;
     }
   }
 
   async guardar(event:any) {
     this._service.addLoading(event.target);
     const data = this.form.getRawValue();
+    console.log(data);
     const res:any = await this._boletaServicioService.save(data);
     if (!res.error) {
       const dataAlert = {

@@ -1,0 +1,89 @@
+form {
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+
+    .content-logo {
+        border: 3px solid #094195;
+        border-radius: 25px;
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin: 10px auto;
+
+        i {
+            color: #094195;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            align-items: center;
+            padding-top: 5px;
+            justify-content: center;
+        }
+    }
+
+    ::ng-deep mat-form-field {
+        &.form-group {
+            .mat-mdc-text-field-wrapper {
+                background: transparent;
+
+                .mat-mdc-form-field-focus-overlay {
+                    opacity: 0;
+                    &:hover, &:focus, &:focus-visible { 
+                        opacity: 0;
+                    }
+                }
+
+                &:hover, &:focus, &:focus-visible {
+                    background: transparent;
+                    outline: none;
+                }
+
+                .mat-mdc-form-field-flex {
+                    display: block;
+                }
+
+                .mdc-line-ripple {
+                    display: none;
+                }
+
+                .mat-mdc-form-field-infix {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 3px solid #094195;
+                    padding: 0;
+                    min-height: auto;
+                    border-radius: 36px 50px 50px 36px;
+                    i {
+                        background-color: #094195;
+                        padding: 10px;
+                        color: #fff;
+                        border-radius: 10px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    button {
+        background-color: #094195;
+        border-radius: 25px;
+        position: relative;
+        bottom: -27px;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 30%;
+        width: 40%;
+        height: 36%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: -1;
+        /* right: 0px; */
+        border-radius: 25px;
+    }
+}

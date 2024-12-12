@@ -1,0 +1,49 @@
+<div class="container">
+    <form action="" [formGroup]="form">
+        <div class="content-logo">
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field class="form-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input matInput placeholder="Correo" type="email" formControlName="email">
+                </mat-form-field>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El correo es requerido',
+                    control: form.controls['email'],
+                    clase: 'black'
+                }"></ng-container>
+            </div>
+            <div class="col-12">
+                <mat-form-field class="form-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input matInput placeholder="Contraseña" type="password" formControlName="password">
+                </mat-form-field>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La contraseña es requerida',
+                    control: form.controls['password'],
+                    clase: 'black'
+                }"></ng-container>
+            </div>
+            <div class="col-12">
+                <button mat-raised-button color="primary" type="submit">INICIAR SESIÓN</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+    <ng-container>
+      <div class="fv-plugins-message-container">
+        <!-- [ngClass]="clase" -->
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </ng-container>
+    }
+</ng-template>

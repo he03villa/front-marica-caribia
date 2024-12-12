@@ -1,0 +1,142 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="col-12">
+            <h1>Usuarios</h1>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="name" type="text">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El nombre del usuario es requerida',
+                    control: form.controls['name'],
+                    clase: 'black'
+                }"></ng-container>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'pattern',
+                    message: 'El nombre de usuario no se permite de tener caracteres especiales',
+                    control: form.controls['name'],
+                    clase: 'black'
+                  }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'minlength',
+                    message: 'El username puede tener minimo de 3 caracteres',
+                    control: form.controls['name'],
+                    clase: 'black'
+                  }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'maxlength',
+                    message: 'El username no puede tener más de 20 caracteres',
+                    control: form.controls['name'],
+                    clase: 'black'
+                  }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email" type="email">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El Correo del usuario es requerida',
+                    control: form.controls['email'],
+                    clase: 'black'
+                }"></ng-container>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'email',
+                    message: 'El correo electrónico no tiene formato',
+                    control: form.controls['email'],
+                    clase: 'black'
+                  }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName="perfil">
+                    @for (item of arrayPerfiles; track $index) {
+                        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El perfil es requerida',
+                    control: form.controls['perfil'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    @for (item of arrayEstados; track $index) {
+                        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El estado es requerida',
+                    control: form.controls['estado'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" type="password">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La contraseña es requerida',
+                    control: form.controls['password'],
+                    clase: 'black'
+                }"></ng-container>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'minlength',
+                    message: 'La contraseña puede tener minimo de 8 caracteres',
+                    control: form.controls['password'],
+                    clase: 'black'
+                  }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Confirmar contraseña</mat-label>
+                <input matInput formControlName="password_confirmation" type="password">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Confirmar contraseña es requerida',
+                    control: form.controls['password_confirmation'],
+                    clase: 'black'
+                }"></ng-container>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'minlength',
+                    message: 'La contraseña puede tener minimo de 8 caracteres',
+                    control: form.controls['password_confirmation'],
+                    clase: 'black'
+                  }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <div class="btn-content">
+                <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="guardar($event)">Guardar</button>
+                <button mat-flat-button color="warn" (click)="_service.url('/dashboard/usuarios/')">Cancelar</button>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <ng-container>
+            <div class="fv-plugins-message-container">
+                <!-- [ngClass]="clase" -->
+                <span role="alert">
+                {{ message }}
+                </span>
+            </div>
+        </ng-container>
+    }
+</ng-template>

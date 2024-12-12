@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { ServiceService } from './service.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
