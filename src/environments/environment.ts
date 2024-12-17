@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    urlApi: 'https://api-marina-caribia-production.up.railway.app/api/',
+    urlApi: 'https://deeppink-termite-689194.hostingersite.com/api-marina-caribia/public/api/',
     api: {
         login: 'login',
         user: {
