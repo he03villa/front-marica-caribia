@@ -6,6 +6,7 @@ import { BoletaServicioService } from '../../../services/boleta-servicio.service
 import { MatSort } from '@angular/material/sort';
 import { environment } from '../../../../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 export interface PeriodicElement {
   name: string;
@@ -29,7 +30,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @Component({
   selector: 'app-lista',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, ReactiveFormsModule],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss',
   standalone: true
@@ -46,17 +47,45 @@ export class ListaComponent {
   _service: ServiceService = inject(ServiceService);
   private _boletaServicioService: BoletaServicioService = inject(BoletaServicioService)
 
+  private _fb:FormBuilder = new FormBuilder();
+  form:FormGroup = new FormGroup({});
+
+  arrayMotonaves: Array<any> = [];
+  arrayDestino: Array<any> = [];
+  arrayAgencias: Array<any> = [];
+  arrayEmbarcaciones: Array<any> = [];
+  arrayPilotos: Array<any> = [];
+  arrayServicios: Array<any> = [];
+
   constructor() {
+    this.cargarDatos();
+    this.form = this._fb.group({
+      estado: [''],
+      servicio: [''],
+      motoNave: [''],
+      piloto: [''],
+      destino: [''],
+      lancha: [''],
+      buscar: [''],
+      fecha_salida: [''],
+      fecha_regreso: [''],
+    })
     this.cargarLista();
   }
 
   ngAfterViewInit() {
     /* this.dataSource.paginator = this.paginator; */
     this.sort?.sortChange.subscribe(() => this.paginator?.firstPage());
+    // Script para abrir/cerrar el dropdown
+    document?.querySelector('.filter-dropdown-btn')?.addEventListener('click', function() {
+      document.querySelector('.filter-dropdown')?.classList.toggle('active');
+    });
+
   }
 
   async cargarLista() {
-    const res:any = await this._boletaServicioService.getAllLista();
+    const data = this.form.getRawValue();
+    const res:any = await this._boletaServicioService.getAllLista(data);
     console.log(res);
     if (!res.error) {
       this.resultsLength = res.length;
@@ -69,5 +98,43 @@ export class ListaComponent {
   async descargarPdf(id:number) {
     const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }/${ environment.api.boleta_servicio.service.pdf }`;
     this._service.abrir(url);
+  }
+
+  async cambiarEstado(event:any, id:number) {
+    const data = {estado: event.target.value};
+    const res:any = await this._boletaServicioService.update(id, data);
+    if (!res.error) {
+      const dataToast = {
+        icon: 'success',
+        text: 'Boleta de servicio actualizada con exito',
+      }
+      this._service.Toast(dataToast);
+    }
+  }
+
+  async cargarDatos() {
+    const res:any = await this._boletaServicioService.getAllSelectCrear();
+    if (!res.error) {
+      this.arrayAgencias = res.agencias;
+      this.arrayEmbarcaciones = res.lanchas;
+      this.arrayMotonaves = res.motoNaves;
+      this.arrayDestino = res.puertosDestinos;
+      this.arrayPilotos = res.pilotos;
+      this.arrayServicios = res.servicios;
+    }
+  }
+
+  clearForm() {
+    this.form.reset();
+    this.form.get('estado')?.setValue('');
+    this.form.get('servicio')?.setValue('');
+    this.form.get('motoNave')?.setValue('');
+    this.form.get('piloto')?.setValue('');
+    this.form.get('destino')?.setValue('');
+    this.form.get('lancha')?.setValue('');
+    this.form.get('buscar')?.setValue('');
+    this.form.get('fecha_salida')?.setValue('');
+    this.form.get('fecha_regreso')?.setValue('');
+    this.cargarLista();
   }
 }

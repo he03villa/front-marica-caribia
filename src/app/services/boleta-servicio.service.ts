@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { ServiceService } from './service.service';
 import { environment } from '../../environments/environment';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,42 @@ export class BoletaServicioService {
     return this._service.promise(this._data.metodoPost(url, data));
   }
 
-  async getAllLista() {
-    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ environment.api.boleta_servicio.service.lista }`;
+  async getAllLista(data:any = null) {
+    let params = new HttpParams();
+    if(data.buscar != '') {
+      params = params.set('buscar', data.buscar)
+    };
+    if(data.estado != '') {
+      params = params.set('estado', data.estado)
+    };
+    if(data.servicio != '') {
+      params = params.set('servicio', data.servicio)
+    };
+    if(data.motoNave != '') {
+      params = params.set('motoNave', data.motoNave)
+    };
+    if(data.piloto != '') {
+      params = params.set('piloto', data.piloto)
+    };
+    if(data.destino != '') {
+      params = params.set('destino', data.destino)
+    };
+    if(data.lancha != '') {
+      params = params.set('lancha', data.lancha)
+    };
+    console.log(params.toString());
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ environment.api.boleta_servicio.service.lista }?${ params.toString() }`;
     return this._service.promise(this._data.metodoGet(url));
   }
 
   async descargarPdf(id:number) {
     const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }/${ environment.api.boleta_servicio.service.pdf }`;
     return this._service.promise(this._data.metodoGet(url));
+  }
+
+  async update(id:number, data:any) {
+    console.log(data);
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }`;
+    return this._service.promise(this._data.metodoPut(url, data));
   }
 }
