@@ -22,4 +22,9 @@ export class UserService {
     const url = `${ environment.urlApi }${ environment.api.user.name }/${ environment.api.user.service.save }`;
     return this._service.promise(this._data.metodoPost(url, data));
   }
+
+  async login(data:any) {
+    const url = `${ environment.urlApi }${ environment.api.login }`;
+    return this._service.promise(this._data.metodoPost(url, data));
+  }
 }

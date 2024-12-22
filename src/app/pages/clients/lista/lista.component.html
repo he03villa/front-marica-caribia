@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-2">
+            <h1>Cliente</h1>
+        </div>
+        <div class="col-12 my-2">
+            <button mat-flat-button color="primary" (click)="_service.url('/dashboard/clientes/create')">Crear
+                cliente</button>
+        </div>
+    </div>
+    <div class="col-12 my-2">
+        <form class="filter-dropdown" [formGroup]="form">
+            <div class="contect-buscar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Buscar" formControlName="buscar" (keyup)="cargarLista()">
+            </div>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Codigo</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of dataSource; track $index) {
+                <tr>
+                    <td data-label="ID">{{item.id_cliente}}</td>
+                    <td data-label="Nombre">{{item.nombre}}</td>
+                    <td data-label="Codigo">{{item.codigo}}</td>
+                    <td data-label="Estado">{{item.estado}}</td>
+                    <td>
+                        <button mat-icon-button color="primary" (click)="_service.url('/dashboard/clientes/edit/' + item.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

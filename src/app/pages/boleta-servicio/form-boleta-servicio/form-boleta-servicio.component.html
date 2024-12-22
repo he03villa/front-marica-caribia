@@ -3,120 +3,174 @@
         <div class="col-12">
             <h1>Crear Boleta</h1>
         </div>
-        <div class="col-6">
-            <mat-form-field>
-                <mat-label>MOTONAVE</mat-label>
+        <div class="col-xs-12 col-md-6 my-2">
+            <div class="mat-form-field">
+                <!-- <label class="custom-mat-label">MOTONAVE</label> -->
+                <ngx-select-dropdown 
+                    [config]="config1" 
+                    [options]="arrayMotonaves"
+                    formControlName="moto_nave"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <!-- <mat-form-field>
                 <mat-select formControlName="moto_nave">
                     @for (item of arrayMotonaves; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'El moto nave es requerida',
-                    control: form.controls['moto_nave'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'El moto nave es requerida',
+                control: form.controls['moto_nave'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>DESTINO</mat-label>
                 <mat-select formControlName="destino">
                     @for (item of arrayDestino; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'El moto nave es requerida',
-                    control: form.controls['destino'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config2" 
+                    [options]="arrayDestino"
+                    formControlName="destino"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'El moto nave es requerida',
+                control: form.controls['destino'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>AGENCIA</mat-label>
                 <mat-select formControlName="agencia">
                     @for (item of arrayAgencias; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'La agencia es requerida',
-                    control: form.controls['agencia'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config3" 
+                    [options]="arrayAgencias"
+                    formControlName="agencia"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'La agencia es requerida',
+                control: form.controls['agencia'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>EMBARCACIÓN</mat-label>
                 <mat-select formControlName="embarcacion">
                     @for (item of arrayEmbarcaciones; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'La embarcacion es requerida',
-                    control: form.controls['embarcacion'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config4" 
+                    [options]="arrayEmbarcaciones"
+                    formControlName="embarcacion"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'La embarcacion es requerida',
+                control: form.controls['embarcacion'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>PILOTO PRÁCTICO</mat-label>
                 <mat-select formControlName="piloto">
                     @for (item of arrayPilotos; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'El piloto es requerida',
-                    control: form.controls['piloto'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config5" 
+                    [options]="arrayPilotos"
+                    formControlName="piloto"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'El piloto es requerida',
+                control: form.controls['piloto'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>TIPO DE SERVICIO</mat-label>
                 <mat-select formControlName="servicio">
                     @for (item of arrayServicios; track $index) {
                         <mat-option [value]="item.id">{{ item.nombre }}</mat-option>
                     }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'El servicio es requerida',
-                    control: form.controls['servicio'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config7" 
+                    [options]="arrayServicios"
+                    formControlName="servicio"
+                    placeholder = "Seleccione una moto nave">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'El servicio es requerida',
+                control: form.controls['servicio'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-3">
-            <mat-form-field>
-                <mat-label>FECHA INICIO</mat-label>
-                <input matInput [matDatepicker]="picker_inicio" formControlName="fecha_inicio">
+        <div class="col-xs-12 col-md-3 my-2">
+            <div class="mat-form-field">
+                <!-- <mat-label>FECHA INICIO</mat-label> -->
+                <input matInput [matDatepicker]="picker_inicio" [disabled]="true" placeholder="FECHA INICIO" formControlName="fecha_inicio">
                 <mat-datepicker-toggle matIconSuffix [for]="picker_inicio"></mat-datepicker-toggle>
                 <mat-datepicker #picker_inicio></mat-datepicker>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'La fecha de inicio es requerida',
-                    control: form.controls['fecha_inicio'],
-                    clase: 'black'
-                }"></ng-container>
-            </mat-form-field>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'La fecha de inicio es requerida',
+                control: form.controls['fecha_inicio'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-3">
-            <mat-form-field>
-                <mat-label>HORA INCIO</mat-label>
-                <input matInput [ngxTimepicker]="hora_inicio" [format]="24" formControlName="hora_inicio">
+        <div class="col-xs-12 col-md-3 my-2">
+            <div class="mat-form-field">
+                <!-- <mat-label>HORA INCIO</mat-label> -->
+                <input matInput [ngxTimepicker]="hora_inicio" placeholder="HORA INICIO" [format]="24" formControlName="hora_inicio">
                 <ngx-material-timepicker #hora_inicio></ngx-material-timepicker>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                     validation: 'required',
@@ -124,12 +178,12 @@
                     control: form.controls['hora_inicio'],
                     clase: 'black'
                 }"></ng-container>
-            </mat-form-field>
+            </div>
         </div>
-        <div class="col-3">
-            <mat-form-field>
-                <mat-label>FECHA FIN</mat-label>
-                <input matInput [matDatepicker]="picker_final" formControlName="fecha_final">
+        <div class="col-xs-12 col-md-3 my-2">
+            <div class="mat-form-field">
+                <!-- <mat-label>FECHA FIN</mat-label> -->
+                <input matInput [matDatepicker]="picker_final" [disabled]="true" placeholder="FECHA FIN" formControlName="fecha_final">
                 <mat-datepicker-toggle matIconSuffix [for]="picker_final"></mat-datepicker-toggle>
                 <mat-datepicker #picker_final></mat-datepicker>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -138,12 +192,12 @@
                     control: form.controls['fecha_final'],
                     clase: 'black'
                 }"></ng-container>
-            </mat-form-field>
+            </div>
         </div>
-        <div class="col-3">
-            <mat-form-field>
-                <mat-label>HORA FIN</mat-label>
-                <input matInput [ngxTimepicker]="hora_final" [format]="24" formControlName="hora_final">
+        <div class="col-xs-12 col-md-3 my-2">
+            <div class="mat-form-field">
+                <!-- <mat-label>HORA FIN</mat-label> -->
+                <input matInput [ngxTimepicker]="hora_final" placeholder="HORA FIN" [format]="24" formControlName="hora_final">
                 <ngx-material-timepicker #hora_final></ngx-material-timepicker>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                     validation: 'required',
@@ -151,25 +205,35 @@
                     control: form.controls['hora_final'],
                     clase: 'black'
                 }"></ng-container>
-            </mat-form-field>
+            </div>
         </div>
-        <div class="col-6">
-            <mat-form-field>
+        <div class="col-xs-12 col-md-6 my-2">
+            <!-- <mat-form-field>
                 <mat-label>Trabajadores</mat-label>
                 <mat-select formControlName="trabajadores" multiple>
                   @for (item of arrayTrabajadores; track item) {
                     <mat-option [value]="item.id">{{item.nombres}} - {{item.cargo}}</mat-option>
                   }
                 </mat-select>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                    validation: 'required',
-                    message: 'Elige un trabajador',
-                    control: form.controls['trabajadores'],
-                    clase: 'black'
-                }"></ng-container>
-              </mat-form-field>
+              </mat-form-field> -->
+            <div class="mat-form-field">
+                <ngx-select-dropdown 
+                    [config]="config6" 
+                    [options]="arrayTrabajadores"
+                    formControlName="trabajadores"
+                    placeholder = "Seleccione una moto nave"
+                    [multiple]="true">
+                </ngx-select-dropdown>
+                <div class="custom-mat-underline"></div>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Elige un trabajador',
+                control: form.controls['trabajadores'],
+                clase: 'black'
+            }"></ng-container>
         </div>
-        <div class="col-12">
+        <div class="col-12 my-2">
             <mat-form-field>
                 <mat-label>OBSERVACIÓN</mat-label>
                 <textarea matInput formControlName="observaciones"></textarea>

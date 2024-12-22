@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class ListaComponent {
   displayedColumns: string[] = ['name', 'email', 'fecha_creacion', 'estado', 'perfil', 'acciones'];
-  dataSource = [];
+  dataSource: Array<any> = [];
   resultsLength = 0;
 
   _service: ServiceService = inject(ServiceService);

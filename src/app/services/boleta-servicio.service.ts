@@ -47,6 +47,12 @@ export class BoletaServicioService {
     if(data.lancha != '') {
       params = params.set('lancha', data.lancha)
     };
+    if(data.fecha_salida != '') {
+      params = params.set('fecha_salida', data.fecha_salida)
+    };
+    if(data.fecha_regreso != '') {
+      params = params.set('fecha_regreso', data.fecha_regreso)
+    };
     console.log(params.toString());
     const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ environment.api.boleta_servicio.service.lista }?${ params.toString() }`;
     return this._service.promise(this._data.metodoGet(url));

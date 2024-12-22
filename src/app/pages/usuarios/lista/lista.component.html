@@ -1,57 +1,41 @@
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 my-2">
             <h1>Usuarios</h1>
         </div>
-        <div class="col-12">
+        <div class="col-12 my-2">
             <button mat-flat-button color="primary" (click)="_service.url('/dashboard/usuarios/create')">Crear
                 usuario</button>
         </div>
     </div>
-    <table mat-table matSort [dataSource]="dataSource">
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-
-        <!-- Email Column -->
-        <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef> Correo </th>
-            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="fecha_creacion">
-            <th mat-header-cell *matHeaderCellDef> Fecha de creación </th>
-            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> Estado </th>
-            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="perfil">
-            <th mat-header-cell *matHeaderCellDef> Perfil </th>
-            <td mat-cell *matCellDef="let element"> {{element.perfil}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element"> </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Fecha de creación</th>
+                <th>Estado</th>
+                <th>Perfil</th>
+                <!-- <th></th> -->
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of dataSource; track $index) {
+                <tr>
+                    <td data-label="ID">{{item.id}}</td>
+                    <td data-label="Nombre">{{item.name}}</td>
+                    <td data-label="Correo">{{item.email}}</td>
+                    <td data-label="Fecha de creación">{{item.created_at}}</td>
+                    <td data-label="Estado">{{item.estado}}</td>
+                    <td data-label="Perfil">{{item.perfil}}</td>
+                    <!-- <td>
+                        <button mat-icon-button color="primary" (click)="_service.url('/dashboard/usuarios/edit/' + item.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td> -->
+                </tr>
+            }
+        </tbody>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                     showFirstLastButtons
-                     aria-label="Select page of periodic elements"
-                     [pageSize]="10"
-                     [length]="resultsLength">
-    </mat-paginator>
 </div>

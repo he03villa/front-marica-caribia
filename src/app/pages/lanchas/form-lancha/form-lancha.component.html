@@ -1,0 +1,59 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="col-12">
+            <h1>{{ actualizar ? 'Editar lancha' : 'Crear lancha' }}</h1>
+        </div>
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>Identificación</mat-label>
+                <input type="text" matInput placeholder="Identificación" formControlName="id_lancha">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La identificación es requerida',
+                    control: form.controls['id_lancha'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El nombre es requerida',
+                    control: form.controls['nombre'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    @for (item of arrayEstados; track $index) {
+                        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El estado es requerida',
+                    control: form.controls['estado'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <div class="btn-content">
+                <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="actualizar ? update($event) : guardar($event)">{{ actualizar ? 'Actualizar' : 'Guardar' }}</button>
+                <button mat-flat-button color="warn" (click)="_service.url('/dashboard/lanchas')">Cancelar</button>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <mat-error>{{ message }}</mat-error>
+    }
+</ng-template>

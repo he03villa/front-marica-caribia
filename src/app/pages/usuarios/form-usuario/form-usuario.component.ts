@@ -24,6 +24,7 @@ export class FormUsuarioComponent {
   arrayPerfiles: Array<any> = [
     { id: 'Administrador', name: 'Administrador' },
     { id: 'Operador', name: 'Operador' },
+    { id: 'Operativo Tablet', name: 'Operativo Tablet' },
   ];
   arrayEstados: Array<any> = [
     { id: 'Activo', name: 'Activo' },

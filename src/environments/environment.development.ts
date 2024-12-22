@@ -16,6 +16,15 @@ export const environment = {
                 lista: 'lista',
                 pdf: 'pdf'
             }
+        },
+        lancha: {
+            name: 'lanchas'
+        },
+        cliente: {
+            name: 'clients'
+        },
+        motoNaves: {
+            name: 'motos_naves'
         }
     }
 };

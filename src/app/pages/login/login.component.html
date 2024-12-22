@@ -29,7 +29,7 @@
                 }"></ng-container>
             </div>
             <div class="col-12">
-                <button mat-raised-button color="primary" type="submit">INICIAR SESIÓN</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" (click)="login($event)">INICIAR SESIÓN</button>
             </div>
         </div>
     </form>

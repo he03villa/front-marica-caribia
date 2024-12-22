@@ -7,6 +7,8 @@ import { MatSort } from '@angular/material/sort';
 import { environment } from '../../../../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 export interface PeriodicElement {
   name: string;
@@ -30,7 +32,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @Component({
   selector: 'app-lista',
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, ReactiveFormsModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, ReactiveFormsModule, SelectDropDownModule],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss',
   standalone: true
@@ -38,6 +40,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ListaComponent {
   displayedColumns: string[] = ['fecha_salida', 'hora_salida', 'fecha_regreso', 'hora_regreso', 'duracion', 'lancha', 'destino', 'piloto', 'motonave', 'servicio', 'estado', 'pdf'];
   dataSource = [];
+  arrayBoletas: Array<any> = [];
   resultsLength = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -56,6 +59,48 @@ export class ListaComponent {
   arrayEmbarcaciones: Array<any> = [];
   arrayPilotos: Array<any> = [];
   arrayServicios: Array<any> = [];
+
+  config1 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Lancha', // Texto de placeholder.
+  };
+
+  config2 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'DESTINO', // Texto de placeholder.
+  };
+
+  config3 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Piloto', // Texto de placeholder.
+  };
+
+  config4 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Motonave', // Texto de placeholder.
+  };
+
+  config5 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Servicio', // Texto de placeholder.
+  };
+
+  config6 = {
+    displayKey: 'nombres', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Servicio', // Texto de placeholder.
+  };
 
   constructor() {
     this.cargarDatos();
@@ -84,12 +129,22 @@ export class ListaComponent {
   }
 
   async cargarLista() {
-    const data = this.form.getRawValue();
+    let data = this.form.getRawValue();
+    console.log(data);
+    data = {
+      ...data,
+      servicio: data.servicio.id ? data.servicio.id : '',
+      motoNave: data.motoNave.id ? data.motoNave.id : '',
+      piloto: data.piloto.id ? data.piloto.id : '',
+      destino: data.destino.id ? data.destino.id : '',
+      lancha: data.lancha.id ? data.lancha.id : ''
+    }
     const res:any = await this._boletaServicioService.getAllLista(data);
     console.log(res);
     if (!res.error) {
       this.resultsLength = res.length;
       this.dataSource = res;
+      this.arrayBoletas = res;
       console.log(this.dataSource);
       this.table?.renderRows();
     }

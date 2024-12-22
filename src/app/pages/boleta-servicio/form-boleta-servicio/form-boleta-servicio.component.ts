@@ -10,10 +10,11 @@ import { BoletaServicioService } from '../../../services/boleta-servicio.service
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../../../services/service.service';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 @Component({
   selector: 'app-form-boleta-servicio',
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule, NgxMaterialTimepickerModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule, NgxMaterialTimepickerModule, SelectDropDownModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './form-boleta-servicio.component.html',
   styleUrl: './form-boleta-servicio.component.scss',
@@ -32,6 +33,63 @@ export class FormBoletaServicioComponent {
   arrayPilotos: Array<any> = [];
   arrayServicios: Array<any> = [];
   arrayTrabajadores: Array<any> = [];
+
+  selectedValue: any;
+  options = [
+    { id: 1, name: 'Opción 1' },
+    { id: 2, name: 'Opción 2' },
+    { id: 3, name: 'Opción 3' },
+    { id: 4, name: 'Opción 4' },
+  ];
+  
+  config1 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'MOTONAVE', // Texto de placeholder.
+  };
+
+  config2 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'DESTINO', // Texto de placeholder.
+  };
+
+  config3 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'AGENCIA', // Texto de placeholder.
+  };
+
+  config4 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'AGENCIA', // Texto de placeholder.
+  };
+
+  config5 = {
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'PILOTO PRÁCTICO', // Texto de placeholder.
+  };
+
+  config6 = {
+    displayKey: 'nombres', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Trabajadores', // Texto de placeholder.
+  };
+
+  config7 = {
+    displayKey: 'nombres', // Nombre del campo que se mostrará en la lista.
+    search: true,       // Habilitar búsqueda.
+    height: '200px',    // Altura del dropdown.
+    placeholder: 'Servicio', // Texto de placeholder.
+  };
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -52,7 +110,7 @@ export class FormBoletaServicioComponent {
       fecha_final: [data?.fecha_final, Validators.compose([Validators.required])],
       hora_final: [data?.hora_final, Validators.compose([Validators.required])],
       trabajadores: [data?.trabajadores, Validators.compose([Validators.required])],
-      observaciones: [data?.observacion, Validators.compose([Validators.required])],
+      observaciones: [data?.observaciones],
     });
   }
 
@@ -71,7 +129,21 @@ export class FormBoletaServicioComponent {
 
   async guardar(event:any) {
     this._service.addLoading(event.target);
-    const data = this.form.getRawValue();
+    let data = this.form.getRawValue();
+    data = {
+      moto_nave: data.moto_nave.id,
+      destino: data.destino.id,
+      agencia: data.agencia.id,
+      embarcacion: data.embarcacion.id,
+      piloto: data.piloto.id,
+      servicio: data.servicio.id,
+      fecha_inicio: data.fecha_inicio,
+      hora_inicio: data.hora_inicio,
+      fecha_final: data.fecha_final,
+      hora_final: data.hora_final,
+      trabajadores: data.trabajadores.map((item:any) => item.id),
+      observaciones: data.observaciones
+    };
     console.log(data);
     const res:any = await this._boletaServicioService.save(data);
     if (!res.error) {

@@ -1,0 +1,51 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 16px;
+        background: #fff;
+        padding: 0 10px;
+        border-radius: 25px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: none;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        flex-shrink: 0;
+        width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    th {
+        display: none;
+    }
+    tr {
+        width: 300px;
+    }
+}
