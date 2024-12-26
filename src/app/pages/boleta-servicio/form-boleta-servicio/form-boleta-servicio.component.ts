@@ -67,7 +67,7 @@ export class FormBoletaServicioComponent {
     displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
     search: true,       // Habilitar búsqueda.
     height: '200px',    // Altura del dropdown.
-    placeholder: 'AGENCIA', // Texto de placeholder.
+    placeholder: 'EMBARCACIÓN', // Texto de placeholder.
   };
 
   config5 = {
@@ -85,7 +85,7 @@ export class FormBoletaServicioComponent {
   };
 
   config7 = {
-    displayKey: 'nombres', // Nombre del campo que se mostrará en la lista.
+    displayKey: 'nombre', // Nombre del campo que se mostrará en la lista.
     search: true,       // Habilitar búsqueda.
     height: '200px',    // Altura del dropdown.
     placeholder: 'Servicio', // Texto de placeholder.

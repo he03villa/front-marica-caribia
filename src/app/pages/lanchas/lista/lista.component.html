@@ -16,28 +16,30 @@
             </div>
         </form>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (item of dataSource; track $index) {
+    <div class="table-container">
+        <table>
+            <thead>
                 <tr>
-                    <td data-label="ID">{{item.id_lancha}}</td>
-                    <td data-label="Nombre">{{item.nombre}}</td>
-                    <td data-label="Estado">{{item.estado}}</td>
-                    <td>
-                        <button mat-icon-button color="primary" (click)="_service.url('/dashboard/lanchas/edit/' + item.id)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (item of dataSource; track $index) {
+                    <tr>
+                        <td data-label="ID">{{item.id_lancha}}</td>
+                        <td data-label="Nombre">{{item.nombre}}</td>
+                        <td data-label="Estado">{{item.estado}}</td>
+                        <td>
+                            <button mat-icon-button color="primary" (click)="_service.url('/dashboard/lanchas/edit/' + item.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

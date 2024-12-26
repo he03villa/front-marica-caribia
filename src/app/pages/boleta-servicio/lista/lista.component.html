@@ -118,48 +118,52 @@
     </form>
 
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Fecha Salida</th>
-        <th>Hora Salida</th>
-        <th>Fecha Regreso</th>
-        <th>Hora Regreso</th>
-        <th>Duracion</th>
-        <th>Lancha</th>
-        <th>Destino</th>
-        <th>Piloto</th>
-        <th>Motonave</th>
-        <th>Servicio</th>
-        <th>Estado</th>
-        <th>PDF</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (item of arrayBoletas; track $index) {
-      <tr>
-        <td data-label="Fecha Salida">{{ item.fecha_salida }}</td>
-        <td data-label="Hora Salida">{{ item.hora_salida }}</td>
-        <td data-label="Fecha Regreso">{{ item.fecha_regreso }}</td>
-        <td data-label="Hora Regreso">{{ item.hora_regreso }}</td>
-        <td data-label="Duracion">{{ item.duracion }}</td>
-        <td data-label="Lancha">{{ item.lancha }}</td>
-        <td data-label="Destino">{{ item.destino }}</td>
-        <td data-label="Piloto">{{ item.piloto }}</td>
-        <td data-label="Motonave">{{ item.motonave }}</td>
-        <td data-label="Servicio">{{ item.servicio }}</td>
-        <td data-label="Estado">
-          <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">
-            <option value="Aprobado">Aprobado</option>
-            <option value="Pendiente">Pendiente</option>
-            <option value="Rechazado">Rechazado</option>
-          </select>
-        </td>
-        <td>
-          <i class="fa-solid fa-file-pdf" (click)="descargarPdf(item.id)"></i>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha Salida</th>
+          <th>Hora Salida</th>
+          <th>Fecha Regreso</th>
+          <th>Hora Regreso</th>
+          <th>Duracion</th>
+          <th>Lancha</th>
+          <th>Destino</th>
+          <th>Piloto</th>
+          <th>Motonave</th>
+          <th>Servicio</th>
+          <th>Estado de facturación</th>
+          <th>Estado</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of arrayBoletas; track $index) {
+        <tr>
+          <td data-label="Fecha Salida">{{ item.fecha_salida }}</td>
+          <td data-label="Hora Salida">{{ item.hora_salida }}</td>
+          <td data-label="Fecha Regreso">{{ item.fecha_regreso }}</td>
+          <td data-label="Hora Regreso">{{ item.hora_regreso }}</td>
+          <td data-label="Duracion">{{ item.duracion }}</td>
+          <td data-label="Lancha">{{ item.lancha }}</td>
+          <td data-label="Destino">{{ item.destino }}</td>
+          <td data-label="Piloto">{{ item.piloto }}</td>
+          <td data-label="Motonave">{{ item.motonave }}</td>
+          <td data-label="Servicio">{{ item.servicio }}</td>
+          <td data-label="Estado de facturación">Por Facturar</td>
+          <td data-label="Estado">
+            <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">
+              <option value="Aprobado">Aprobado</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Rechazado">Rechazado</option>
+            </select>
+          </td>
+          <td>
+            <i class="fa-solid fa-file-pdf" (click)="descargarPdf(item.id)"></i>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>

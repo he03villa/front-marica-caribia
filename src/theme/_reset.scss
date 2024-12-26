@@ -1,51 +1,75 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: nowrap;
+    border: 1px solid #ddd;
 
-th,
-td {
-    padding: 8px;
-    text-align: left;
-}
-
-@media (max-width: 768px) {
     table {
-        display: block;
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+            @media (max-width: 576px) {
+                width: 300px;
+            }
+        }
+
+        th, td {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            text-align: left;
+
+            @media (max-width: 576px) {
+                border: none;
+            }
+        }
+
+        th {
+            background-color: #f4f4f4;
+            @media (max-width: 576px) {
+                display: none;
+            }
+        }
+
+        td {
+            select {
+                width: 120px;
+            }
+            @media (max-width: 768px) {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 0;
+                border-bottom: none;
+
+                &::before {
+                    content: attr(data-label);
+                    font-weight: bold;
+                    flex-shrink: 0;
+                    width: 50%;
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            display: block;
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                display: block;
+                margin-bottom: 16px;
+                background: #fff;
+                padding: 0 10px;
+                border-radius: 25px;
+            }
+        }
     }
 
-    thead {
-        display: none;
-    }
-
-    tr {
-        display: block;
-        margin-bottom: 16px;
-        background: #fff;
-        padding: 0 10px;
-        border-radius: 25px;
-    }
-
-    td {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: none;
-    }
-
-    td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        flex-shrink: 0;
-        width: 50%;
-    }
-}
-
-@media (max-width: 576px) {
-    th {
-        display: none;
-    }
-    tr {
-        width: 300px;
+    @media (max-width: 576px) {
+        border: none;
+        white-space: normal;
+        overflow: hidden;
     }
 }

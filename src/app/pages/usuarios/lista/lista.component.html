@@ -8,34 +8,36 @@
                 usuario</button>
         </div>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Fecha de creación</th>
-                <th>Estado</th>
-                <th>Perfil</th>
-                <!-- <th></th> -->
-            </tr>
-        </thead>
-        <tbody>
-            @for (item of dataSource; track $index) {
+    <div class="table-container">
+        <table>
+            <thead>
                 <tr>
-                    <td data-label="ID">{{item.id}}</td>
-                    <td data-label="Nombre">{{item.name}}</td>
-                    <td data-label="Correo">{{item.email}}</td>
-                    <td data-label="Fecha de creación">{{item.created_at}}</td>
-                    <td data-label="Estado">{{item.estado}}</td>
-                    <td data-label="Perfil">{{item.perfil}}</td>
-                    <!-- <td>
-                        <button mat-icon-button color="primary" (click)="_service.url('/dashboard/usuarios/edit/' + item.id)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td> -->
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha de creación</th>
+                    <th>Estado</th>
+                    <th>Perfil</th>
+                    <!-- <th></th> -->
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (item of dataSource; track $index) {
+                    <tr>
+                        <td data-label="ID">{{item.id}}</td>
+                        <td data-label="Nombre">{{item.name}}</td>
+                        <td data-label="Correo">{{item.email}}</td>
+                        <td data-label="Fecha de creación">{{item.created_at}}</td>
+                        <td data-label="Estado">{{item.estado}}</td>
+                        <td data-label="Perfil">{{item.perfil}}</td>
+                        <!-- <td>
+                            <button mat-icon-button color="primary" (click)="_service.url('/dashboard/usuarios/edit/' + item.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td> -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
