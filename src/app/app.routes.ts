@@ -29,6 +29,10 @@ export const routes: Routes = [
                 loadChildren: () => import('../app/pages/moto-naves/moto-naves.routes').then((m) => m.routes)
             },
             {
+                path: 'trabajadores',
+                loadChildren: () => import('../app/pages/trabajadores/trabajadores.routes').then((m) => m.routes)
+            },
+            {
                 path: '',
                 redirectTo: '/dashboard/boleta-servicio',
                 pathMatch: 'full',

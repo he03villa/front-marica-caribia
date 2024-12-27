@@ -132,6 +132,7 @@
           <th>Piloto</th>
           <th>Motonave</th>
           <th>Servicio</th>
+          <th>Trabajadores</th>
           <th>Estado de facturación</th>
           <th>Estado</th>
           <th>PDF</th>
@@ -150,6 +151,7 @@
           <td data-label="Piloto">{{ item.piloto }}</td>
           <td data-label="Motonave">{{ item.motonave }}</td>
           <td data-label="Servicio">{{ item.servicio }}</td>
+          <td data-label="Trabajadores">{{ item.trabajadores }}</td>
           <td data-label="Estado de facturación">Por Facturar</td>
           <td data-label="Estado">
             <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">

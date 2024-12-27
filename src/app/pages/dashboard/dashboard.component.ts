@@ -31,6 +31,7 @@ export class DashboardComponent {
     {name: 'Lanchas', link: 'lanchas', icon: 'sailing', action: () => this._services.url('dashboard/lanchas'), clase: '', permisos: ['Administrador']},
     {name: 'Clientes', link: 'clientes', icon: 'support_agent', action: () => this._services.url('dashboard/clientes'), clase: '', permisos: ['Administrador']},
     {name: 'Embarcaciones', link: 'moto-naves', icon: 'local_shipping', action: () => this._services.url('dashboard/moto-naves'), clase: '', permisos: ['Administrador', 'Operador']},
+    {name: 'Trabajadores', link: 'trabajadores', icon: 'engineering', action: () => this._services.url('dashboard/trabajadores'), clase: '', permisos: ['Administrador']},
     {name: 'Cerrar Sesión', link: '', icon: 'logout', action: () => this._services.cerrarSecion(), clase: 'cerrar', permisos: ['Administrador', 'Operador', 'Operativo Tablet']},
   ];
 

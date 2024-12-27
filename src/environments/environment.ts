@@ -25,6 +25,12 @@ export const environment = {
         },
         motoNaves: {
             name: 'motos_naves'
-        }
+        },
+        cargo: {
+            name: 'cargos'
+        },
+        trabajadores: {
+            name: 'trabajadores'
+        },
     }
 };

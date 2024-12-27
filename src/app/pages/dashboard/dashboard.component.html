@@ -22,7 +22,7 @@
                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="!mobileQuery.matches">
       <mat-nav-list>
         @for (nav of fillerNav; track nav) {
-          @if (nav.permisos?.includes(dataUser.perfil)) {
+          @if (nav?.permisos?.includes(dataUser.perfil)) {
             <a mat-list-item (click)="nav.action()" [ngClass]="nav.clase">
               <mat-icon mat-list-icon>{{nav.icon}}</mat-icon>
               {{nav.name}}
