@@ -14,7 +14,8 @@ export const environment = {
             name: 'boletas_servicios',
             service: {
                 lista: 'lista',
-                pdf: 'pdf'
+                pdf: 'pdf',
+                facturacion: 'facturacion'
             }
         },
         lancha: {

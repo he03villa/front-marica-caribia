@@ -64,8 +64,12 @@ export class BoletaServicioService {
   }
 
   async update(id:number, data:any) {
-    console.log(data);
     const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }`;
+    return this._service.promise(this._data.metodoPut(url, data));
+  }
+
+  async updateFacturacion(id:number, data:any) {
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }/${ environment.api.boleta_servicio.service.facturacion }`;
     return this._service.promise(this._data.metodoPut(url, data));
   }
 }

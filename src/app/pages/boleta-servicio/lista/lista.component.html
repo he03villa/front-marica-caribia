@@ -151,8 +151,17 @@
           <td data-label="Piloto">{{ item.piloto }}</td>
           <td data-label="Motonave">{{ item.motonave }}</td>
           <td data-label="Servicio">{{ item.servicio }}</td>
-          <td data-label="Trabajadores">{{ item.trabajadores }}</td>
-          <td data-label="Estado de facturación">Por Facturar</td>
+          <td data-label="Trabajadores">
+            <div class="tres_puntos">
+              {{ item.trabajadores }}
+            </div>
+          </td>
+          <td data-label="Estado de facturación">
+            <select name="" id="" [value]="item.facturacion" (change)="cambiarFacturacion($event, item.id)">
+              <option value="Por Facturar">Por Facturar</option>
+              <option value="Facturado">Facturado</option>
+            </select>
+          </td>
           <td data-label="Estado">
             <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">
               <option value="Aprobado">Aprobado</option>

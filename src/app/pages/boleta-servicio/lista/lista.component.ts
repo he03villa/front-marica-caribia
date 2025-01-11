@@ -167,6 +167,18 @@ export class ListaComponent {
     }
   }
 
+  async cambiarFacturacion(event:any, id:number) {
+    const data = {facturacion: event.target.value};
+    const res:any = await this._boletaServicioService.updateFacturacion(id, data);
+    if (!res.error) {
+      const dataToast = {
+        icon: 'success',
+        text: 'Boleta de servicio actualizada con exito',
+      }
+      this._service.Toast(dataToast);
+    }
+  }
+
   async cargarDatos() {
     const res:any = await this._boletaServicioService.getAllSelectCrear();
     if (!res.error) {
