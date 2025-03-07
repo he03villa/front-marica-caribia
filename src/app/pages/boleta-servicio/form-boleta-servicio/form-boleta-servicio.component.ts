@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../../../services/service.service';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { PuertoService } from '../../../services/puerto.service';
 
 @Component({
   selector: 'app-form-boleta-servicio',
@@ -23,6 +24,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
 export class FormBoletaServicioComponent {
 
   private _boletaServicioService: BoletaServicioService = inject(BoletaServicioService);
+  private _puertoService: PuertoService = inject(PuertoService);
   _service: ServiceService = inject(ServiceService);
   private _fb:FormBuilder = new FormBuilder();
   form:FormGroup = new FormGroup({});
@@ -124,6 +126,13 @@ export class FormBoletaServicioComponent {
       this.arrayPilotos = res.pilotos;
       this.arrayServicios = res.servicios;
       this.arrayTrabajadores = res.trabajador;
+    }
+  }
+
+  async cargarServicios() {
+    if (this.form.get('destino')?.value != '') {
+      const res:any = await this._puertoService.getServicisos(this.form.get('destino')?.value.id);
+      this.arrayServicios = res;
     }
   }
 

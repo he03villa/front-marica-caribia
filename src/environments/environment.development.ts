@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    urlApi: 'http://127.0.0.1:7000/api/',
+    urlApi: 'http://127.0.0.1:8001/api/',
     api: {
         login: 'login',
         user: {
@@ -15,7 +15,8 @@ export const environment = {
             service: {
                 lista: 'lista',
                 pdf: 'pdf',
-                facturacion: 'facturacion'
+                facturacion: 'facturacion',
+                boteasIsNotFactures: 'boteasIsNotFactures'
             }
         },
         lancha: {
@@ -32,6 +33,21 @@ export const environment = {
         },
         trabajadores: {
             name: 'trabajadores'
+        },
+        puertos_or_destinos: {
+            name: 'puertos_or_destinos',
+            services: {
+                servicios: 'servicios'
+            }
+        },
+        facturas: {
+            name: 'facturas',
+            service: {
+                export: 'export'
+            }
+        },
+        servicios: {
+            name: 'servicios'
         },
     }
 };

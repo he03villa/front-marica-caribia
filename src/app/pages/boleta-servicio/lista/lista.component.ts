@@ -49,6 +49,7 @@ export class ListaComponent {
 
   _service: ServiceService = inject(ServiceService);
   private _boletaServicioService: BoletaServicioService = inject(BoletaServicioService)
+  dataUser:any = localStorage.getItem('dataUser') || undefined;
 
   private _fb:FormBuilder = new FormBuilder();
   form:FormGroup = new FormGroup({});
@@ -103,6 +104,7 @@ export class ListaComponent {
   };
 
   constructor() {
+    this.dataUser = this.dataUser ? JSON.parse(this.dataUser) : '';
     this.cargarDatos();
     this.form = this._fb.group({
       estado: [''],
@@ -203,5 +205,18 @@ export class ListaComponent {
     this.form.get('fecha_salida')?.setValue('');
     this.form.get('fecha_regreso')?.setValue('');
     this.cargarLista();
+  }
+
+  async deleteBoletas(id:number) {
+    const res:any = await this._boletaServicioService.delete(id);
+    if (!res.error) {
+      const dataToast = {
+        icon: 'success',
+        text: 'Boleta de servicio eliminada con exito',
+      }
+      this._service.Toast(dataToast);
+      const post = this.arrayBoletas.findIndex((item:any) => item.id == id);
+      this.arrayBoletas.splice(post, 1);
+    }
   }
 }

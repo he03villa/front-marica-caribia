@@ -133,8 +133,10 @@
           <th>Motonave</th>
           <th>Servicio</th>
           <th>Trabajadores</th>
-          <th>Estado de facturación</th>
-          <th>Estado</th>
+          @if (dataUser.perfil == 'Administrador' || dataUser.perfil == 'Supervisor') {
+            <th>Estado de facturación</th>
+            <th>Estado</th>
+          }
           <th>PDF</th>
         </tr>
       </thead>
@@ -156,21 +158,26 @@
               {{ item.trabajadores }}
             </div>
           </td>
-          <td data-label="Estado de facturación">
-            <select name="" id="" [value]="item.facturacion" (change)="cambiarFacturacion($event, item.id)">
-              <option value="Por Facturar">Por Facturar</option>
-              <option value="Facturado">Facturado</option>
-            </select>
-          </td>
-          <td data-label="Estado">
-            <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">
-              <option value="Aprobado">Aprobado</option>
-              <option value="Pendiente">Pendiente</option>
-              <option value="Rechazado">Rechazado</option>
-            </select>
-          </td>
+          @if (dataUser.perfil == 'Administrador' || dataUser.perfil == 'Supervisor') {
+            <td data-label="Estado de facturación">
+              <select name="" id="" [value]="item.facturacion" (change)="cambiarFacturacion($event, item.id)">
+                <option value="Por Facturar">Por Facturar</option>
+                <option value="Facturado">Facturado</option>
+              </select>
+            </td>
+            <td data-label="Estado">
+              <select name="" id="" [value]="item.estado" (change)="cambiarEstado($event, item.id)">
+                <option value="Aprobado">Aprobado</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Rechazado">Rechazado</option>
+              </select>
+            </td>
+          }
           <td>
             <i class="fa-solid fa-file-pdf" (click)="descargarPdf(item.id)"></i>
+            @if (dataUser.perfil == 'Administrador' || dataUser.perfil == 'Supervisor') {
+              <i class="fa-solid fa-trash" (click)="deleteBoletas(item.id)"></i>
+            }
           </td>
         </tr>
         }

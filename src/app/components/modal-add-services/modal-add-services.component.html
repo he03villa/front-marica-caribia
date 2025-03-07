@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar Servicios</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-group">
+            <label for="servicio">Servicios</label>
+            <ng-select [items]="arrayServicios" 
+                bindLabel="nombre" 
+                bindValue="id" 
+                formControlName="servicios"
+                [multiple]="true"
+                searchable="true"
+                class="w-100">
+            </ng-select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" (click)="agregarServicio($event)">Agregar</button>
+        </div>
+    </form>
+</div>

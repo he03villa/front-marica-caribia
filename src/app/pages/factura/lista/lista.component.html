@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 my-2">
+      <h1>Facturacion</h1>
+    </div>
+    <div class="col-12 my-2">
+      <button mat-flat-button color="primary" (click)="_service.url('/dashboard/factura/create')">Crear
+        factura</button>
+    </div>
+    <div class="col-12 my-2">
+      <form class="filter-dropdown" [formGroup]="form">
+        <div class="contect-buscar">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Buscar" formControlName="buscar" (keyup)="cargarLista()">
+        </div>
+        <div ngbDropdown class="d-inline-block">
+          <button class="filter-dropdown-btn" ngbDropdownToggle id="dropdownBasic1">
+            <i class="fa fa-filter"></i> Filtros
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div class="filter-container">
+              <div class="filter-row">
+                <mat-form-field>
+                  <mat-label>Fecha</mat-label>
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" formControlName="fecha_inicio">
+                    <input matEndDate placeholder="End date" formControlName="fecha_fin">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker>
+                    <mat-date-range-picker-actions>
+                      <button mat-button matDateRangePickerCancel  (click)="limpiarFechas()">Limpiar</button>
+                      <button mat-raised-button matDateRangePickerApply (click)="cargarLista()">Aceptar</button>
+                    </mat-date-range-picker-actions>
+                  </mat-date-range-picker>
+                </mat-form-field>              
+              </div>
+              <!-- <div class="button-container">
+                <button class="filter-btn">Filtrar</button>
+                <button class="reset-btn">Resetear Filtros</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th># Factura</th>
+          <th>Cliente</th>
+          <th>Embarcación</th>
+          <th>Motonave</th>
+          <th>Servicio</th>
+          <th>Total</th>
+          <th>Fecha creacion</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of arrayFacturacion; track $index) {
+        <tr>
+          <td data-label="# Factura">{{ item.numero_factura }}</td>
+          <td data-label="Cliente">{{ item.boleta.agencias.nombre }}</td>
+          <td data-label="Embarcación">{{ item.boleta.embarcaciones.nombre }}</td>
+          <td data-label="Motonave">{{ item.boleta.motonaves.nombre }}</td>
+          <td data-label="Servicio">{{ item.boleta.servicios.nombre }}</td>
+          <td data-label="Total">{{ item.total | currency : 'USD' }}</td>
+          <td data-label="Fecha creacion">{{ item.created_at | date }}</td>
+          <td>
+            <button mat-icon-button color="primary" (click)="_service.url('/dashboard/factura/edit/' + item.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteFactura(item.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <i class="fa-solid fa-file-csv" (click)="exportar(item.id)"></i>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

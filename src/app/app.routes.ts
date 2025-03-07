@@ -33,6 +33,18 @@ export const routes: Routes = [
                 loadChildren: () => import('../app/pages/trabajadores/trabajadores.routes').then((m) => m.routes)
             },
             {
+                path: 'factura',
+                loadChildren: () => import('../app/pages/factura/factura.routes').then((m) => m.routes)
+            },
+            {
+                path: 'servicios',
+                loadChildren: () => import('../app/pages/servicios/servicios.routes').then((m) => m.routes)
+            },
+            {
+                path: 'puerto',
+                loadChildren: () => import('../app/pages/puerto/puerto.routes').then((m) => m.routes)
+            },
+            {
                 path: '',
                 redirectTo: '/dashboard/boleta-servicio',
                 pathMatch: 'full',

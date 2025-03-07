@@ -26,13 +26,16 @@ export class DashboardComponent {
     
   fillerNav = [
     //{name: 'Dashboard', link: '', icon: 'dashboard', action: () => this._services.url('dashboard/boleta-servicio'), clase: ''},
-    {name: 'Usuarios', link: 'usuarios', icon: 'account_circle', action: () => this._services.url('dashboard/usuarios'), clase: '', permisos: ['Administrador', 'Operador']},
-    {name: 'Boletas', link: 'boletas', icon: 'assignment', action: () => this._services.url('dashboard/boleta-servicio'), clase: '', permisos: ['Administrador', 'Operador', 'Operativo Tablet']},
-    {name: 'Embarcaciones', link: 'lanchas', icon: 'sailing', action: () => this._services.url('dashboard/lanchas'), clase: '', permisos: ['Administrador']},
-    {name: 'Clientes', link: 'clientes', icon: 'support_agent', action: () => this._services.url('dashboard/clientes'), clase: '', permisos: ['Administrador']},
-    {name: 'Moto Naves', link: 'moto-naves', icon: 'local_shipping', action: () => this._services.url('dashboard/moto-naves'), clase: '', permisos: ['Administrador', 'Operador']},
-    {name: 'Trabajadores', link: 'trabajadores', icon: 'engineering', action: () => this._services.url('dashboard/trabajadores'), clase: '', permisos: ['Administrador']},
-    {name: 'Cerrar Sesión', link: '', icon: 'logout', action: () => this._services.cerrarSecion(), clase: 'cerrar', permisos: ['Administrador', 'Operador', 'Operativo Tablet']},
+    {name: 'Usuarios', link: 'usuarios', icon: 'account_circle', action: () => this._services.url('dashboard/usuarios'), clase: '', permisos: ['Administrador', 'Operador', 'super_admin']},
+    {name: 'Boletas', link: 'boletas', icon: 'assignment', action: () => this._services.url('dashboard/boleta-servicio'), clase: '', permisos: ['Administrador', 'Operador', 'Operativo Tablet', 'super_admin']},
+    {name: 'Embarcaciones', link: 'lanchas', icon: 'sailing', action: () => this._services.url('dashboard/lanchas'), clase: '', permisos: ['Administrador', 'super_admin']},
+    {name: 'Clientes', link: 'clientes', icon: 'support_agent', action: () => this._services.url('dashboard/clientes'), clase: '', permisos: ['Administrador', 'super_admin']},
+    {name: 'Moto Naves', link: 'moto-naves', icon: 'directions_boat', action: () => this._services.url('dashboard/moto-naves'), clase: '', permisos: ['Administrador', 'Operador', 'super_admin']},
+    {name: 'Trabajadores', link: 'trabajadores', icon: 'engineering', action: () => this._services.url('dashboard/trabajadores'), clase: '', permisos: ['Administrador', 'Operador', 'super_admin']},
+    {name: 'Facturación', link: 'factura', icon: 'manufacturing', action: () => this._services.url('dashboard/factura'), clase: '', permisos: ['Administrador','super_admin']},
+    {name: 'Servicios', link: 'servicios', icon: 'design_services', action: () => this._services.url('dashboard/servicios'), clase: '', permisos: ['Administrador','super_admin']},
+    {name: 'Puertos', link: 'puertos', icon: 'assistant_navigation', action: () => this._services.url('dashboard/puerto'), clase: '', permisos: ['Administrador','super_admin']},
+    {name: 'Cerrar Sesión', link: '', icon: 'logout', action: () => this._services.cerrarSecion(), clase: 'cerrar', permisos: ['Administrador', 'Operador', 'Operativo Tablet', 'super_admin']},
   ];
 
   private _mobileQueryListener: () => void;

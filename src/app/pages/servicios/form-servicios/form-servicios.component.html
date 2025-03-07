@@ -1,0 +1,102 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="col-12">
+            <h1>{{ actualizar ? 'Editar servicio' : 'Crear servicio' }}</h1>
+        </div>
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>Codigo</mat-label>
+                <input type="text" matInput placeholder="Identificación" formControlName="codigo">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La identificación es requerida',
+                    control: form.controls['codigo'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El nombre es requerida',
+                    control: form.controls['nombre'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    @for (item of arrayEstados; track $index) {
+                        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+                    }
+                </mat-select>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El estado es requerida',
+                    control: form.controls['estado'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-12 my-2">
+            <a mat-flat-button color="primary" (click)="addItem()">
+                <mat-icon>add</mat-icon>
+                <span>Agregar concepto</span>
+            </a>
+        </div>
+        @if (arrayConceptos.length > 0) {
+            <div class="col-xs-12 col-md-12 my-2">
+                <table class="w-100">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of arrayConceptos; track $index) {
+                            <ng-container formArrayName="concepto_servicios">
+                                <tr [formGroupName]="$index">
+                                    <td>
+                                        <mat-form-field>
+                                            <mat-label>Codigo</mat-label>
+                                            <input type="text" matInput placeholder="Codigo" formControlName="codigo">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field>
+                                            <mat-label>Nombre</mat-label>
+                                            <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <a mat-icon-button color="primary" (click)="eliminarItem($index)">
+                                            <mat-icon>delete</mat-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        }
+                </table>
+            </div>
+        }
+        <div class="col-12">
+            <div class="btn-content">
+                <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="actualizar ? update($event) : guardar($event)">{{ actualizar ? 'Actualizar' : 'Guardar' }}</button>
+                <button mat-flat-button color="warn" (click)="_service.url('/dashboard/servicios')">Cancelar</button>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <mat-error>{{ message }}</mat-error>
+    }
+</ng-template>

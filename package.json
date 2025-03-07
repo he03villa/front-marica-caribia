@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.1",
+    "@ng-select/ng-select": "^13.9.1",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "ngx-material-timepicker": "^13.1.1",

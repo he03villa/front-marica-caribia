@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    urlApi: 'https://deeppink-termite-689194.hostingersite.com/api-marina-caribia/public/api/',
+    urlApi: 'https://zirumadocs.com/api-marina-caribia/public/api/',
     api: {
         login: 'login',
         user: {
@@ -15,7 +15,8 @@ export const environment = {
             service: {
                 lista: 'lista',
                 pdf: 'pdf',
-                facturacion: 'facturacion'
+                facturacion: 'facturacion',
+                boteasIsNotFactures: 'boteasIsNotFactures'
             }
         },
         lancha: {
@@ -32,6 +33,21 @@ export const environment = {
         },
         trabajadores: {
             name: 'trabajadores'
+        },
+        puertos_or_destinos: {
+            name: 'puertos_or_destinos',
+            services: {
+                servicios: 'servicios'
+            }
+        },
+        facturas: {
+            name: 'facturas',
+            service: {
+                export: 'export'
+            }
+        },
+        servicios: {
+            name: 'servicios'
         },
     }
 };

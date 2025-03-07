@@ -1,0 +1,155 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="row">
+            <div class="col-12">
+                <h1>{{ actualizar ? 'Editar Factura' : 'Crear Factura' }}</h1>
+            </div>
+            @if (!actualizar) {
+                <div class="col-xs-12 col-md-12 my-2">
+                    <div class="mat-form-field">
+                        <ngx-select-dropdown 
+                            [config]="config1" 
+                            [options]="arrayBoletas"
+                            formControlName="boleta_servicio_id"
+                            (change)="cargarBoleta()"
+                            placeholder = "Seleccione una moto nave">
+                        </ngx-select-dropdown>
+                        <div class="custom-mat-underline"></div>
+                    </div>
+                </div>
+            }
+            @if (dataBoleta) {
+                <div class="col-xs-12 col-md-5 my-2">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Cliente</mat-label>
+                                <input matInput value="{{ dataBoleta?.agencias?.nombre }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Moto Nave</mat-label>
+                                <input matInput value="{{ dataBoleta?.motonaves?.nombre }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Embarcación</mat-label>
+                                <input matInput value="{{ dataBoleta?.embarcaciones?.nombre }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Destino</mat-label>
+                                <input matInput value="{{ dataBoleta?.destinos?.nombre }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Servicio</mat-label>
+                                <input matInput value="{{ dataBoleta?.servicios?.nombre }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Fecha Inicio</mat-label>
+                                <input matInput value="{{ dataBoleta?.fecha_inicio }} {{ dataBoleta?.hora_inicio }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Fecha Fin</mat-label>
+                                <input matInput value="{{ dataBoleta?.fecha_final }} {{ dataBoleta?.hora_final }}" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-md-6 my-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Total</mat-label>
+                                <input matInput value="{{ form.controls['total'].value | currency : 'USD' }}" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-7 my-2">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 my-2 d-flex justify-content-end">
+                            <button mat-flat-button color="primary" (click)="addConcepto()">
+                                <i class="fa-solid fa-plus"></i>
+                                Agregar
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-md-12 my-2">
+                            <div class="table-container" formArrayName="detalles" style="overflow-x: clip;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Concepto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (getFormArray().length > 0) {
+                                            @for (item of arrayDetalles; track $index) {
+                                                <tr [formGroupName]="$index">
+                                                    <td style="width: 280px">
+                                                        <div class="mat-form-field">
+                                                            <!-- (change)="calcularSubtotal($index)" -->
+                                                            <ng-select [items]="arrayConceptos" 
+                                                                    bindLabel="nombre" 
+                                                                    bindValue="idPivot" 
+                                                                    formControlName="tarifas_concepto_id"
+                                                                    class="w-100">
+                                                            </ng-select>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 150px">
+                                                        <div class="mat-form-field">
+                                                            <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" (change)="calcularSubtotal($index)">
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ item.subtotal | currency : 'USD' }}</td>
+                                                    <td>
+                                                        <button mat-icon-button color="warn" (click)="removeConcepto($index)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        } @else {
+                                            <tr>
+                                                <td colspan="3" class="text-center">
+                                                    No hay detalles
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-12">
+                <div class="btn-content">
+                    <button mat-flat-button color="primary" [disabled]="!form.valid || arrayDetalles.length == 0" (click)=" actualizar ? update($event) : guardar($event)">{{ actualizar ? 'Actualizar' : 'Guardar' }}</button>
+                    <button mat-flat-button color="warn" (click)="_service.url('/dashboard/factura/')">Cancelar</button>
+                </div> 
+            </div>
+        </div>
+    </form>
+</div>
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <ng-container>
+            <div class="fv-plugins-message-container">
+                <!-- [ngClass]="clase" -->
+                <span role="alert">
+                {{ message }}
+                </span>
+            </div>
+        </ng-container>
+    }
+</ng-template>

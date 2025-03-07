@@ -72,4 +72,19 @@ export class BoletaServicioService {
     const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }/${ environment.api.boleta_servicio.service.facturacion }`;
     return this._service.promise(this._data.metodoPut(url, data));
   }
+
+  async delete(id:number) {
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }`;
+    return this._service.promise(this._data.metodoDelete(url));
+  }
+
+  async getBoleta(id:number) {
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ id }`;
+    return this._service.promise(this._data.metodoGet(url));
+  }
+
+  async getBoletasIsNotFacturadas() {
+    const url = `${ environment.urlApi }${ environment.api.boleta_servicio.name }/${ environment.api.boleta_servicio.service.boteasIsNotFactures }`;;
+    return this._service.promise(this._data.metodoGet(url));
+  }
 }
