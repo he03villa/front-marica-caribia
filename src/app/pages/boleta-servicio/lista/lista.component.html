@@ -158,7 +158,7 @@
               {{ item.trabajadores }}
             </div>
           </td>
-          @if (dataUser.perfil == 'Administrador' || dataUser.perfil == 'Supervisor') {
+          @if (dataUser.perfil == 'Administrador' || dataUser.perfil == 'Supervisor' || dataUser.perfil == 'Operador') {
             <td data-label="Estado de facturación">
               <select name="" id="" [value]="item.facturacion" (change)="cambiarFacturacion($event, item.id)">
                 <option value="Por Facturar">Por Facturar</option>

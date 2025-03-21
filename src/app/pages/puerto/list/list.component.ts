@@ -6,6 +6,7 @@ import { ServiceService } from '../../../services/service.service';
 import { PuertoService } from '../../../services/puerto.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddServicesComponent } from '../../../components/modal-add-services/modal-add-services.component';
+import { ModalAddUpdateConceptoComponent } from '../../../components/modal-add-update-concepto/modal-add-update-concepto.component';
 
 @Component({
   selector: 'app-list',
@@ -50,13 +51,13 @@ export class ListComponent {
     }
   }
 
-  async addOrUpdateConsento(item: any) {
+  async addOrUpdateConcepto(item: any) {
     console.log(item);
-    /* const resModal = await this._service.abrirModal(ModalAddServicesComponent, { id: item.id, servicios: item.servicios });
+    const resModal = await this._service.abrirModal(ModalAddUpdateConceptoComponent, { id: item.id, conceptos: item.concepto_servicios });
     const result = await resModal.result;
     if (result) {
       const position = this.dataSource.findIndex((i: any) => i.id === item.id);
       this.dataSource[position] = result;
-    } */
+    }
   }
 }

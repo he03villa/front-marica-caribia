@@ -65,9 +65,9 @@ export class FormFacturaComponent {
     const res:any = await this._boletaServicioService.getBoletasIsNotFacturadas();
     if (!res.error) {
       console.log(res);
-      this.arrayBoletas = res.boletas.map((x:any) => ({...x, nombre: `${x.id_boleta_servicio} - ${ x.embarcaciones.nombre }` }));
+      this.arrayBoletas = res.boletas.map((x:any) => ({...x, nombre: `${x.id_boleta_servicio} - ${ x.embarcaciones.nombre } - ${ x.motonaves.nombre }` }));
       this.salario_minimo = res.ms;
-      this.arrayConceptos = res?.conceptos.map((x:any) => ({...x, idPivot: x?.pivot?.id }));
+      //this.arrayConceptos = res?.conceptos.map((x:any) => ({...x, idPivot: x?.pivot?.id }));
     }
   }
 
@@ -134,7 +134,7 @@ export class FormFacturaComponent {
   }
 
   calcularSubtotal(index: number) {
-    /* let concepto = this.getFormArray().get(`${index}.tarifas_concepto_id`)?.value;
+    let concepto = this.getFormArray().get(`${index}.tarifas_concepto_id`)?.value;
     concepto = this.arrayConceptos.find((x:any) => x.idPivot == concepto);
     const cantidad = concepto.pivot.tarifa;
     const subtotal = cantidad * this.salario_minimo;
@@ -142,10 +142,10 @@ export class FormFacturaComponent {
     this.getFormArray().get(`${index}.subtotal`)?.setValue(subtotal);
     this.arrayDetalles[index].cantidad = cantidad;
     this.arrayDetalles[index].subtotal = subtotal;
-    this.arrayDetalles[index].tarifas_concepto_id = concepto; */
-    let concepto = this.getFormArray().get(`${index}.tarifas_concepto_id`)?.value;
+    this.arrayDetalles[index].tarifas_concepto_id = concepto;
+    /*let concepto = this.getFormArray().get(`${index}.tarifas_concepto_id`)?.value;
     const cantidad = this.getFormArray().get(`${index}.cantidad`)?.value;
-    const subtotal = cantidad * this.salario_minimo;
+    const subtotal = cantidad * this.salario_minimo; */
     this.arrayDetalles[index].subtotal = subtotal;
     this.arrayDetalles[index].cantidad = cantidad;
     this.arrayDetalles[index].tarifas_concepto_id = concepto;

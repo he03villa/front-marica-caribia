@@ -49,5 +49,8 @@ export const environment = {
         servicios: {
             name: 'servicios'
         },
+        conceptos: {
+            name: 'conceptos'
+        }
     }
 };
