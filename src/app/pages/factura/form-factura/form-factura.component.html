@@ -7,13 +7,22 @@
             @if (!actualizar) {
                 <div class="col-xs-12 col-md-12 my-2">
                     <div class="mat-form-field">
-                        <ngx-select-dropdown 
+                        <!-- <ngx-select-dropdown 
                             [config]="config1" 
                             [options]="arrayBoletas"
                             formControlName="boleta_servicio_id"
                             (change)="cargarBoleta()"
                             placeholder = "Seleccione una moto nave">
-                        </ngx-select-dropdown>
+                        </ngx-select-dropdown> -->
+                        <ng-select [items]="arrayBoletas" 
+                            bindLabel="nombre" 
+                            bindValue="id" 
+                            formControlName="boleta_servicio_id"
+                            [multiple]="true"
+                            searchable="true"
+                            class="w-100"
+                            (change)="cargarBoleta()">
+                        </ng-select>
                         <div class="custom-mat-underline"></div>
                     </div>
                 </div>
@@ -99,7 +108,7 @@
                                                             <!--  -->
                                                             <ng-select [items]="arrayConceptos" 
                                                                     bindLabel="nombre" 
-                                                                    bindValue="idPivot" 
+                                                                    bindValue="id" 
                                                                     formControlName="tarifas_concepto_id"
                                                                     (change)="calcularSubtotal($index)">
                                                             </ng-select>

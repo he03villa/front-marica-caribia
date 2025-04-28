@@ -20,9 +20,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
                     <th>Codigo</th>
+                    <th>Nombre</th>
+                    <!-- <th>Codigo</th> -->
                     <th>Estado</th>
                     <th></th>
                 </tr>
@@ -30,14 +30,26 @@
             <tbody>
                 @for (item of dataSource; track $index) {
                     <tr>
-                        <td data-label="ID">{{item.id_cliente}}</td>
+                        <td data-label="Codigo">{{item.id_agencia}}</td>
                         <td data-label="Nombre">{{item.nombre}}</td>
-                        <td data-label="Codigo">{{item.codigo}}</td>
+                        <!-- <td data-label="Codigo">{{item.codigo}}</td> -->
                         <td data-label="Estado">{{item.estado}}</td>
                         <td>
-                            <button mat-icon-button color="primary" (click)="_service.url('/dashboard/clientes/edit/' + item.id)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm" ngbDropdownToggle>
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <button ngbDropdownItem class="d-flex" (click)="_service.url('/dashboard/clientes/edit/' + item.id)">
+                                        <mat-icon>edit</mat-icon>
+                                        Editar
+                                    </button>
+                                    <button ngbDropdownItem class="d-flex" (click)="addOrUpdateConcepto(item)">
+                                        <mat-icon>add</mat-icon>
+                                        Agregar Conceptos
+                                    </button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }

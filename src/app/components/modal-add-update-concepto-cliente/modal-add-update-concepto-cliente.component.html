@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Agregar Concepto</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-group">
+            <label for="servicio">Concepto</label>
+            <ng-select [items]="arrayConceptos" 
+                bindLabel="nombre" 
+                bindValue="id" 
+                formControlName="concepto"
+                [multiple]="false"
+                searchable="true"
+                class="w-100"
+                (change)="buscarConcepto()">
+            </ng-select>
+        </div>
+
+        <div class="form-group">
+            <label for="tarifa">Tarifa</label>
+            <input type="number" class="form-control" placeholder="Tarifa" min="0" formControlName="tarifa" id="tarifa">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" [disabled]="!form.valid" (click)="agregarConcepto($event)" class="btn btn-primary">Agregar</button>
+        </div>
+    </form>
+</div>

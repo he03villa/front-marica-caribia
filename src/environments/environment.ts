@@ -50,7 +50,10 @@ export const environment = {
             name: 'servicios'
         },
         conceptos: {
-            name: 'conceptos'
+            name: 'conceptos',
+            service: {
+                storeCliente: 'cliente'
+            }
         }
     }
 };

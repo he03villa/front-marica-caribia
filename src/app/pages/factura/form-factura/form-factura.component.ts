@@ -76,7 +76,11 @@ export class FormFacturaComponent {
     console.log(res);
     if (!res.error) {
       res.detalles = res.detalle;
-      this.arrayConceptos = res.boleta?.destinos?.concepto_servicios.map((x:any) => ({...x, idPivot: x.pivot.id }));
+      this.arrayConceptos = res.boleta?.agencias?.concepto_servicios.map((x:any) => ({...x, idPivot: x.pivot.id }));
+      console.log(this.arrayConceptos);
+      if (this.arrayConceptos.length == 0) {
+        this.arrayConceptos = res.boleta?.destinos?.concepto_servicios.map((x:any) => ({...x, idPivot: x.pivot.id }));
+      }
       this.cargarForm(res);
       this.dataBoleta = res.boleta;
     }
@@ -93,12 +97,78 @@ export class FormFacturaComponent {
     this.arrayDetalles.forEach((item:any) => this.getFormArray().push(this.getFormGroup(item)));
   }
 
-  cargarBoleta() {
-    const data = this.form.get('boleta_servicio_id')?.value;
-    const boleto = this.arrayBoletas.find((x:any) => x.id_boleta_servicio == data.id_boleta_servicio);
-    this.dataBoleta = data;
-    this.arrayConceptos = boleto?.destinos?.concepto_servicios.map((x:any) => ({...x, idPivot: x?.pivot?.id }));
+  async cargarBoleta() {
+    const data: number[] = this.form.get('boleta_servicio_id')?.value;
+    
+    // Si no hay datos seleccionados
+    if (!data || data.length === 0) {
+      this.dataBoleta = null;
+      this.arrayConceptos = [];
+      return;
+    }
+    
+    // Obtener todas las boletas seleccionadas
+    const boletasSeleccionadas = this.arrayBoletas.filter((x: any) => data.includes(x.id));
+    
+    // Si no hay boletas seleccionadas (esto no debería ocurrir normalmente)
+    if (boletasSeleccionadas.length === 0) {
+      this.dataBoleta = null;
+      this.arrayConceptos = [];
+      return;
+    }
+    
+    // Si ya tenemos una boleta cargada, verificar compatibilidad con todas las nuevas selecciones
+    if (this.dataBoleta != null) {
+      // Verificar cada boleta nueva seleccionada
+      const boletaIncompatible = boletasSeleccionadas.find((boleto: any) => 
+        boleto.agencia != this.dataBoleta.agencia || boleto.servicio != this.dataBoleta.servicio
+      );
+      
+      if (boletaIncompatible) {
+        console.log('No se puede cambiar la boleta');
+        // Eliminar la boleta incompatible de la selección
+        const pos = data.findIndex((x: number) => x == boletaIncompatible.id);
+        if (pos !== -1) {
+          data.splice(pos, 1);
+          this.form.get('boleta_servicio_id')?.setValue(data);
+        }
+        
+        const dataAlert = {
+          icon: 'warning',
+          text: 'No puedes elegir esta boleta ya que no tiene la misma agencia y servicio.',
+          confirmButtonText: 'Aceptar',
+        }
+        const resModal = await this._service.Alert(dataAlert);
+        return;
+      }
+    } else {
+      // Si es la primera selección, establecer como referencia
+      this.dataBoleta = boletasSeleccionadas[0];
+    }
+    
+    // Procesar todas las boletas seleccionadas
+    this.arrayConceptos = [];
+    
+    // Recopilar conceptos de todas las boletas seleccionadas
+    boletasSeleccionadas.forEach((boleto: any) => {
+      const conceptos = boleto.agencias?.concepto_servicios?.map((x: any) => ({
+        ...x,
+        idPivot: x?.pivot?.id,
+      })) || [];
+      
+      if (conceptos.length > 0) {
+        this.arrayConceptos = [...this.arrayConceptos, ...conceptos];
+      } else {
+        const conceptosDestino = boleto.destinos?.concepto_servicios?.map((x: any) => ({
+          ...x,
+          idPivot: x?.pivot?.id,
+        })) || [];
+        
+        this.arrayConceptos = [...this.arrayConceptos, ...conceptosDestino];
+      }
+    });
   }
+  
 
   getFormArray(): FormArray {
     return this.form.get('detalles') as FormArray;
@@ -135,7 +205,7 @@ export class FormFacturaComponent {
 
   calcularSubtotal(index: number) {
     let concepto = this.getFormArray().get(`${index}.tarifas_concepto_id`)?.value;
-    concepto = this.arrayConceptos.find((x:any) => x.idPivot == concepto);
+    concepto = this.arrayConceptos.find((x:any) => x.id == concepto);
     const cantidad = concepto.pivot.tarifa;
     const subtotal = cantidad * this.salario_minimo;
     this.getFormArray().get(`${index}.cantidad`)?.setValue(cantidad);
@@ -157,7 +227,7 @@ export class FormFacturaComponent {
   async guardar(event: any) {
     this._service.addLoading(event.target);
     const data = this.form.getRawValue();
-    data.boleta_servicio_id = data.boleta_servicio_id.id;
+    //data.boleta_servicio_id = data.boleta_servicio_id.id;
     //data.detalles = data.detalles.map((item:any) => ({...item, tarifas_concepto_id: item.tarifas_concepto_id.pivot.id}));
     console.log(data);
     const res:any = await this._facturaService.save(data);

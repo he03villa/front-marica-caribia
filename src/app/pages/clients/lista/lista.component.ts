@@ -7,11 +7,14 @@ import { ServiceService } from '../../../services/service.service';
 import { ClientsService } from '../../../services/clients.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAddUpdateConceptoComponent } from '../../../components/modal-add-update-concepto/modal-add-update-concepto.component';
+import { ModalAddUpdateConceptoClienteComponent } from '../../../components/modal-add-update-concepto-cliente/modal-add-update-concepto-cliente.component';
 
 @Component({
   selector: 'app-lista',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, ReactiveFormsModule, MatIconModule],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, ReactiveFormsModule, MatIconModule, NgbDropdownModule],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss'
 })
@@ -56,6 +59,16 @@ export class ListaComponent {
       this.dataSource = res;
       console.log(this.dataSource);
       this.table?.renderRows();
+    }
+  }
+
+  async addOrUpdateConcepto(item: any) {
+    console.log(item);
+    const resModal = await this._service.abrirModal(ModalAddUpdateConceptoClienteComponent, { id: item.id, conceptos: item.concepto_servicios });
+    const result = await resModal.result;
+    if (result) {
+      const position = this.dataSource.findIndex((i: any) => i.id === item.id);
+      this.dataSource[position] = result;
     }
   }
 }

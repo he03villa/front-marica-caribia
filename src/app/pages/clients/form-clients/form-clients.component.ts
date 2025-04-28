@@ -51,7 +51,7 @@ export class FormClientsComponent {
     this.form = this._fb.group({
       id: [data?.id],
       nombre: [data?.nombre, Validators.compose([Validators.required])],
-      codigo: [data?.codigo, Validators.compose([Validators.required])],
+      id_agencia: [data?.id_agencia, Validators.compose([Validators.required])],
       estado: [data?.estado, Validators.compose([Validators.required])],
     });
   }

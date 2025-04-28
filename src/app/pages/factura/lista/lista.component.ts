@@ -74,7 +74,7 @@ export class ListaComponent {
     const res:any = await this._facturaService.getAll(data);
     console.log(res);
     if (!res.error) {
-      this.arrayFacturacion = res;
+      this.arrayFacturacion = res.map((x:any) => ({...x, boleta: (x.boleta ? x.boleta : x.boletas[0]) }));
     }
   }
 

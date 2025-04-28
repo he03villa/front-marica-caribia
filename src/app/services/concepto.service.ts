@@ -19,7 +19,12 @@ export class ConceptoService {
   }
 
   async save(data:any) {
-    const url = `${ environment.urlApi }${ environment.api.conceptos.name }`;;
+    const url = `${ environment.urlApi }${ environment.api.conceptos.name }`;
+    return this._service.promise(this._data.metodoPost(url, data));
+  }
+
+  async saveConceptoCliente(data:any) {
+    const url = `${ environment.urlApi }${ environment.api.conceptos.name }/${ environment.api.conceptos.service.storeCliente }`;
     return this._service.promise(this._data.metodoPost(url, data));
   }
 }

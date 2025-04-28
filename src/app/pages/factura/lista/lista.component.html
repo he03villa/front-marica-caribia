@@ -63,10 +63,10 @@
         @for (item of arrayFacturacion; track $index) {
         <tr>
           <td data-label="# Factura">{{ item.numero_factura }}</td>
-          <td data-label="Cliente">{{ item.boleta.agencias.nombre }}</td>
-          <td data-label="Embarcación">{{ item.boleta.embarcaciones.nombre }}</td>
-          <td data-label="Motonave">{{ item.boleta.motonaves.nombre }}</td>
-          <td data-label="Servicio">{{ item.boleta.servicios.nombre }}</td>
+          <td data-label="Cliente">{{ item.boleta?.agencias?.nombre }}</td>
+          <td data-label="Embarcación">{{ item.boleta?.embarcaciones?.nombre }}</td>
+          <td data-label="Motonave">{{ item.boleta?.motonaves?.nombre }}</td>
+          <td data-label="Servicio">{{ item.boleta?.servicios?.nombre }}</td>
           <td data-label="Total">{{ item.total | currency : 'USD' }}</td>
           <td data-label="Fecha creacion">{{ item.created_at | date }}</td>
           <td>

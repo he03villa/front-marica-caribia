@@ -62,3 +62,7 @@ input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, se
     border-color: #007BFF;
     outline: none;
 }
+
+.dropdown-toggle::after {
+    display: none;
+}
