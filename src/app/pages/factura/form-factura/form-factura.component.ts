@@ -91,6 +91,8 @@ export class FormFacturaComponent {
       id: [data?.id],
       boleta_servicio_id: [data?.boleta_servicio_id, Validators.compose([Validators.required])],
       total: [data?.total],
+      subtotal: [data?.subtotal],
+      descuento: [data?.descuento || 0],
       detalles: this._fb.array([]),
     });
     this.arrayDetalles = data?.detalles || [];
@@ -121,7 +123,7 @@ export class FormFacturaComponent {
     if (this.dataBoleta != null) {
       // Verificar cada boleta nueva seleccionada
       const boletaIncompatible = boletasSeleccionadas.find((boleto: any) => 
-        boleto.agencia != this.dataBoleta.agencia || boleto.servicio != this.dataBoleta.servicio
+        boleto.agencia != this.dataBoleta.agencia
       );
       
       if (boletaIncompatible) {
@@ -151,7 +153,9 @@ export class FormFacturaComponent {
     
     // Recopilar conceptos de todas las boletas seleccionadas
     boletasSeleccionadas.forEach((boleto: any) => {
-      const conceptos = boleto.agencias?.concepto_servicios?.map((x: any) => ({
+      const arrayConceptos = boleto.servicios?.concepto_servicios?.map((x: any) => x.id);
+      const arrayConceptosAgencia = boleto.agencias?.concepto_servicios?.filter((x: any) => arrayConceptos.includes(x.id)) || [];
+      const conceptos = arrayConceptosAgencia.map((x: any) => ({
         ...x,
         idPivot: x?.pivot?.id,
       })) || [];
@@ -159,7 +163,8 @@ export class FormFacturaComponent {
       if (conceptos.length > 0) {
         this.arrayConceptos = [...this.arrayConceptos, ...conceptos];
       } else {
-        const conceptosDestino = boleto.destinos?.concepto_servicios?.map((x: any) => ({
+        const arrayConceptosDestino = boleto.destinos?.concepto_servicios?.filter((x: any) => arrayConceptos.includes(x.id)) || [];
+        const conceptosDestino = arrayConceptosDestino.map((x: any) => ({
           ...x,
           idPivot: x?.pivot?.id,
         })) || [];
@@ -167,6 +172,21 @@ export class FormFacturaComponent {
         this.arrayConceptos = [...this.arrayConceptos, ...conceptosDestino];
       }
     });
+    
+    this.arrayConceptos.forEach(this.cargarTarifas.bind(this));
+    this.calcularDescuento();
+  }
+
+  async cargarTarifas(item: any) {
+    const data = {
+      id: null,
+      facturas_id: null,
+      tarifas_concepto_id: item.id,
+      cantidad: item.pivot.tarifa,
+      subtotal: item.pivot.tarifa * this.salario_minimo
+    };
+    this.arrayDetalles.push(data);
+    this.getFormArray().push(this.getFormGroup(data));
   }
   
 
@@ -199,8 +219,7 @@ export class FormFacturaComponent {
   removeConcepto(index: number) {
     this.arrayDetalles.splice(index, 1);
     this.getFormArray().removeAt(index);
-    const total = this.arrayDetalles.reduce((a, b) => a + parseFloat(b.subtotal), 0);
-    this.form.get('total')?.setValue(total);
+    this.calcularDescuento();
   }
 
   calcularSubtotal(index: number) {
@@ -220,8 +239,17 @@ export class FormFacturaComponent {
     this.arrayDetalles[index].cantidad = cantidad;
     this.arrayDetalles[index].tarifas_concepto_id = concepto;
     const total = this.arrayDetalles.reduce((a, b) => a + parseFloat(b.subtotal), 0);
+    const subtotal2 = total - (total * this.form.get('descuento')?.value / 100);
     console.log(total);
     this.form.get('total')?.setValue(total);
+    this.form.get('subtotal')?.setValue(subtotal2);
+  }
+
+  calcularDescuento() {
+    const total = this.arrayDetalles.reduce((a, b) => a + parseFloat(b.subtotal), 0);
+    const subtotal = total - (total * this.form.get('descuento')?.value / 100);
+    this.form.get('total')?.setValue(total);
+    this.form.get('subtotal')?.setValue(subtotal);
   }
 
   async guardar(event: any) {

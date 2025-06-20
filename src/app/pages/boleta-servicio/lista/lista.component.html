@@ -122,6 +122,7 @@
     <table>
       <thead>
         <tr>
+          <th>Codigo Boleta</th>
           <th>Fecha Salida</th>
           <th>Hora Salida</th>
           <th>Fecha Regreso</th>
@@ -143,6 +144,7 @@
       <tbody>
         @for (item of arrayBoletas; track $index) {
         <tr>
+          <td data-label="Codigo Boleta">{{ item.id_boleta_servicio }}</td>
           <td data-label="Fecha Salida">{{ item.fecha_salida }}</td>
           <td data-label="Hora Salida">{{ item.hora_salida }}</td>
           <td data-label="Fecha Regreso">{{ item.fecha_regreso }}</td>

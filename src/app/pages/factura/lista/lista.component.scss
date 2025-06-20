@@ -194,3 +194,23 @@ select:focus {
     border: 1px solid #ddd;
     border-radius: 8px;
 }*/
+
+.acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    .exportar {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            margin-top: 8px;
+            cursor: pointer;
+            color: #1acb58;
+        }
+    }
+}

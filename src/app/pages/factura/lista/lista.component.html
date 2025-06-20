@@ -67,16 +67,18 @@
           <td data-label="Embarcación">{{ item.boleta?.embarcaciones?.nombre }}</td>
           <td data-label="Motonave">{{ item.boleta?.motonaves?.nombre }}</td>
           <td data-label="Servicio">{{ item.boleta?.servicios?.nombre }}</td>
-          <td data-label="Total">{{ item.total | currency : 'USD' }}</td>
+          <td data-label="Total">{{ item.total_label | currency : 'USD' }}</td>
           <td data-label="Fecha creacion">{{ item.created_at | date }}</td>
-          <td>
+          <td class="acciones">
             <button mat-icon-button color="primary" (click)="_service.url('/dashboard/factura/edit/' + item.id)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteFactura(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <i class="fa-solid fa-file-csv" (click)="exportar(item.id)"></i>
+            <button mat-icon-button (click)="exportar(item.id)" class="exportar">
+              <i class="fa-solid fa-file-excel"></i>
+            </button>
           </td>
         </tr>
         }

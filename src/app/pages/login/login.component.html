@@ -1,14 +1,21 @@
 <div class="container-img">
+    <!-- Logo de Ziruma -->
+    <div class="logo-container">
+        <img src="../../../assets/img/logo.jpg" alt="Ziruma Doc's">
+        <h1>Ziruma Doc's</h1>
+    </div>
+    
     <div class="container">
         <form action="" [formGroup]="form">
             <div class="content-logo">
                 <i class="fa-solid fa-user"></i>
             </div>
+            <h2>Iniciar Sesión</h2>
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="form-group">
-                        <i class="fa-solid fa-user"></i>
-                        <input matInput placeholder="Correo" type="email" formControlName="email">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input matInput placeholder="Correo electrónico" type="email" formControlName="email">
                     </mat-form-field>
                     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                         validation: 'required',
@@ -24,14 +31,21 @@
                     </mat-form-field>
                     <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                         validation: 'required',
-                        message: 'La contraseña es requerida',
+                        message: 'La contraseña es requerida',
                         control: form.controls['password'],
                         clase: 'black'
                     }"></ng-container>
                 </div>
                 <div class="col-12">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" (click)="login($event)">INICIAR SESIÓN</button>
+                    <button mat-raised-button type="submit" [disabled]="form.invalid" (click)="login($event)">INICIAR SESIÓN</button>
                 </div>
+            </div>
+            
+            <!-- Decoración inspirada en Ziruma -->
+            <div class="decoration">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
             </div>
         </form>
     </div>
@@ -41,7 +55,6 @@
     @if (control.hasError(validation) && (control.dirty || control.touched)) {
     <ng-container>
       <div class="fv-plugins-message-container">
-        <!-- [ngClass]="clase" -->
         <span role="alert">
           {{ message }}
         </span>
