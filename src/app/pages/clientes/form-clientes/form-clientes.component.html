@@ -1,0 +1,81 @@
+<div class="container">
+    <form class="row" [formGroup]="form">
+        <div class="col-12">
+            <h1>{{ actualizar ? 'Editar cliente' : 'Crear cliente' }}</h1>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput placeholder="Nombre" formControlName="name">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El nombre es requerida',
+                    control: form.controls['name'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input type="text" matInput placeholder="Correo" formControlName="email">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'El correo es requerida',
+                    control: form.controls['email'],
+                    clase: 'black'
+                }"></ng-container>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'email',
+                    message: 'El correo es invalido',
+                    control: form.controls['email'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <mat-form-field>
+                <mat-label>Identificación</mat-label>
+                <input type="text" matInput placeholder="Identificación" formControlName="identification">
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La identificación es requerida',
+                    control: form.controls['identification'],
+                    clase: 'black'
+                }"></ng-container>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-md-6 my-2">
+            <div class="mat-form-field">
+                <ng-select [items]="arrayTypeIdentity" 
+                    bindLabel="name" 
+                    bindValue="id" 
+                    formControlName="type_identification_id"
+                    [multiple]="false"
+                    searchable="true"
+                    placeholder="Seleccione una tipo de identificación"
+                    class="w-100">
+                </ng-select>
+                <div class="custom-mat-underline"></div>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'La identificación es requerida',
+                    control: form.controls['type_identification_id'],
+                    clase: 'black'
+                }"></ng-container>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="btn-content">
+                <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="guardar($event)">{{ actualizar ? 'Actualizar' : 'Guardar' }}</button>
+                <button mat-flat-button color="warn" (click)="_service.url('/clients/clientes/')">Cancelar</button>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-clase="clase" let-validation="validation">
+    @if (control.hasError(validation) && (control.dirty || control.touched)) {
+        <mat-error>{{ message }}</mat-error>
+    }
+</ng-template>

@@ -36,7 +36,11 @@ export class LoginComponent {
     this._service.removeLoading(event.target);
     if (!res.error) {
       localStorage.setItem('dataUser', JSON.stringify(res));
-      this._service.url('/dashboard');
+      if (res.perfil == 'contador') {
+        this._service.url('/clients');
+      } else {
+        this._service.url('/dashboard');
+      }
     }
   }
 }

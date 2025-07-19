@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="step">
+        <h2>Paso 1: Escanear cara frontal de la cédula</h2>
+        <div class="scan-area">
+            <input type="file" (change)="onFileSelected($event, 'front')" accept="image/*" #frontFileInput>
+            @if (frontImagePreview) {
+            <div class="preview">
+                <img [src]="frontImagePreview" alt="Cara frontal">
+            </div>
+            }
+            <button (click)="scanFrontSide()" [disabled]="!frontImageFile || isProcessing">
+                {{ isProcessing ? 'Procesando...' : 'Escanear cara frontal' }}
+            </button>
+        </div>
+    </div>
+</div>

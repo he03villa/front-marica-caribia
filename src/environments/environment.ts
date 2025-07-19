@@ -3,6 +3,7 @@ export const environment = {
     urlApi: 'https://zirumadocs.com/api-marina-caribia/public/api/',
     api: {
         login: 'login',
+        register: 'register',
         user: {
             name: 'users',
             service: {
@@ -53,6 +54,24 @@ export const environment = {
             name: 'conceptos',
             service: {
                 storeCliente: 'cliente'
+            }
+        },
+        typeIdentification: {
+            name: 'type_identifications'
+        },
+        clients: {
+            name: 'clients',
+            service: {
+                unlink: 'unlink'
+            }
+        },
+        empleados: {
+            name: 'empleados',
+            service: {
+                scanFront: 'scan-cedula-front',
+                scanBack: 'scan-cedula-back',
+                processCedula: 'process-cedula',
+                compareFaces: 'compare-faces'
             }
         }
     }

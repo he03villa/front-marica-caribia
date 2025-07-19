@@ -1,0 +1,144 @@
+<div class="scanner-container">
+  <h2>Lector de Códigos de Barras</h2>
+
+  <div *ngIf="!hasPermission" class="alert alert-warning">
+    <p>Se necesitan permisos de cámara para usar el lector de códigos de barras.</p>
+    <button (click)="checkPermissions()" class="btn btn-primary">
+      Solicitar Permisos
+    </button>
+  </div>
+
+  <div *ngIf="!hasDevices && hasPermission" class="alert alert-danger">
+    <p>No se encontraron dispositivos de cámara.</p>
+  </div>
+
+  <div *ngIf="hasDevices && hasPermission" class="controls">
+    <div class="device-selector">
+      <label for="deviceSelect">Seleccionar Cámara:</label>
+      <select id="deviceSelect"
+              [value]="currentDevice?.deviceId"
+              (change)="onDeviceSelectChange($event)">
+        <option *ngFor="let device of availableDevices"
+                [value]="device.deviceId">
+          {{ device.label || 'Cámara ' + device.deviceId }}
+        </option>
+      </select>
+    </div>
+
+    <div class="scanner-controls">
+      <button *ngIf="!scannerEnabled"
+              (click)="startScanner()"
+              class="btn btn-success">
+        📷 Iniciar Lector
+      </button>
+      <button *ngIf="scannerEnabled"
+              (click)="stopScanner()"
+              class="btn btn-danger">
+        ⏹️ Detener Lector
+      </button>
+      <button *ngIf="scanResult"
+              (click)="clearResult()"
+              class="btn btn-secondary">
+        🗑️ Limpiar
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="scannerEnabled && hasPermission && hasDevices" class="scanner-wrapper">
+    <div class="scanner-guide">
+      <p>📱 Apunta la cámara hacia el código de barras</p>
+      <p>🎯 Mantén el código dentro del marco</p>
+    </div>
+
+    <zxing-scanner
+      #scanner
+      [enable]="scannerEnabled"
+      [device]="currentDevice"
+      [formats]="allowedFormats"
+      (scanSuccess)="onCodeResult($event)"
+      (scanError)="onScanError($event)"
+      (camerasFound)="onCamerasFound($event)"
+      (hasPermission)="onHasPermission($event)">
+    </zxing-scanner>
+  </div>
+
+  <div *ngIf="scanResult" class="barcode-info">
+    <h3>🏷️ Código de Barras Detectado</h3>
+
+    <div class="barcode-details">
+      <div class="detail-item">
+        <strong>Código:</strong>
+        <span class="barcode-value">{{ scanResult }}</span>
+        <button (click)="copyToClipboard(scanResult)"
+                class="btn-copy" title="Copiar código">
+          📋
+        </button>
+      </div>
+
+      <div class="detail-item">
+        <strong>Tipo:</strong>
+        <span class="barcode-type">{{ barcodeType }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="productInfo && (barcodeType.includes('EAN') || barcodeType.includes('UPC'))"
+         class="product-info">
+      <h4>📦 Información del Producto</h4>
+      <div class="product-details">
+        <p><strong>Nombre:</strong> {{ productInfo.name }}</p>
+        <p><strong>Marca:</strong> {{ productInfo.brand }}</p>
+        <p><strong>Categoría:</strong> {{ productInfo.category }}</p>
+        <p><strong>Precio:</strong> {{ productInfo.price }}</p>
+        <p><strong>Descripción:</strong> {{ productInfo.description }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="productInfo && (!barcodeType.includes('EAN') && !barcodeType.includes('UPC'))"
+         class="general-info">
+      <h4>ℹ️ Información del Código</h4>
+      <div class="general-details">
+        <p><strong>Datos:</strong> {{ productInfo.data }}</p>
+        <p><strong>Escaneado:</strong> {{ productInfo.timestamp }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="scanHistory.length > 0" class="scan-history">
+    <div class="history-header">
+      <h3>📋 Historial de Códigos</h3>
+      <button (click)="clearHistory()" class="btn btn-outline-secondary btn-sm">
+        🗑️ Limpiar Historial
+      </button>
+    </div>
+
+    <div class="history-list">
+      <div *ngFor="let item of scanHistory" class="history-item">
+        <div class="history-info">
+          <div class="history-code">{{ item.code }}</div>
+          <div class="history-type">{{ item.type }}</div>
+          <div class="history-time">{{ item.timestamp }}</div>
+        </div>
+        <button (click)="rescanBarcode(item.code)"
+                class="btn-rescan"
+                title="Ver detalles">
+          👁️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h4>📚 Tipos de Códigos Soportados</h4>
+    <div class="supported-formats">
+      <span class="format-tag">EAN-13</span>
+      <span class="format-tag">EAN-8</span>
+      <span class="format-tag">UPC-A</span>
+      <span class="format-tag">UPC-E</span>
+      <span class="format-tag">Code 128</span>
+      <span class="format-tag">Code 39</span>
+      <span class="format-tag">Code 93</span>
+      <span class="format-tag">ITF</span>
+      <span class="format-tag">Codabar</span>
+    </div>
+  </div>
+</div>

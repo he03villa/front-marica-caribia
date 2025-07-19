@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-2">
+            <h1>Cliente</h1>
+        </div>
+        <div class="col-12 my-2">
+            <button mat-flat-button color="primary" (click)="_service.url('/clients/clientes/create')">Crear
+                cliente</button>
+        </div>
+    </div>
+    <div class="col-12 my-2">
+        <form class="filter-dropdown" [formGroup]="form">
+            <div class="contect-buscar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Buscar" formControlName="buscar" (keypress)="cargarLista()">
+            </div>
+        </form>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Identificacion</th>
+                    <th>Nombre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (dataSource.length > 0) {
+                    @for (item of dataSource; track $index) {
+                        <tr>
+                            <td data-label="ID">{{item.identification}}</td>
+                            <td data-label="Nombre">{{item.name}}</td>
+                            <td>
+                                <button mat-icon-button color="primary" (click)="editar(item.id)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="eliminar(item.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                } @else {
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            No hay clientes
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (dataSource.length > 0) {
+            <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="dataSource.length"
+               [pageSize]="form.get('limite')?.value"
+               [pageSizeOptions]="pageSizeOptions"
+               aria-label="Select page">
+            </mat-paginator>
+        }
+    </div>
+</div>

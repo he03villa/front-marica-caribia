@@ -5,7 +5,7 @@ import { noAuthGuard } from './guard/no-auth.guard';
 export const routes: Routes = [
     {
         path: 'dashboard',
-        loadComponent: () => import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+        loadComponent: () => import('./layout/dashboard/dashboard.component').then((m) => m.DashboardComponent),
         canActivate: [authGuard],
         children: [
             {
@@ -52,13 +52,46 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'clients',
+        canActivate: [authGuard],
+        loadComponent: () => import('./layout/cliente-layout/cliente-layout.component').then((m) => m.ClienteLayoutComponent),
+        children: [
+            {
+                path: 'clientes',
+                loadChildren: () => import('../app/pages/clientes/clientes.routes').then((m) => m.routes)
+            },
+            {
+                path: 'factura',
+                loadChildren: () => import('../app/pages/invoice/clientes.routes').then((m) => m.routes)
+            },
+            {
+                path: 'empleados',
+                loadChildren: () => import('../app/pages/employee/employee.routes').then((m) => m.routes)
+            },
+            {
+                path: 'entrega',
+                loadComponent: () => import('./pages/lunch-delivery/lunch-delivery.component').then((m) => m.LunchDeliveryComponent)
+            },
+            {
+                path: '',
+                redirectTo: '/clients/clientes',
+                pathMatch: 'full',
+            }
+        ]
+    },
+    {
         path: '',
-        loadComponent: () => import('./pages/content/content.component').then((m) => m.ContentComponent),
+        loadComponent: () => import('./layout/content/content.component').then((m) => m.ContentComponent),
         children: [
             {
                 path: 'login',
                 canActivate: [noAuthGuard],
                 loadComponent: () => import('./pages/login/login.component').then((m) => m.LoginComponent)
+            },
+            {
+                path: 'register',
+                canActivate: [noAuthGuard],
+                loadComponent: () => import('./pages/register/register.component').then((m) => m.RegisterComponent)
             },
             {
                 path: '',

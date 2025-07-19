@@ -1,0 +1,14 @@
+@import '../../../../theme/_reset.scss';
+mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-form-field {
+    ng-select {
+        width: 100%;
+        .ng-select-container {
+            background: transparent;
+            border: none;
+        }
+    }
+}

@@ -70,6 +70,16 @@ form {
     position: relative;
     overflow: hidden;
     margin-top: 75px;
+
+    .link {
+        color: $primary-color;
+        text-decoration: none;
+        cursor: pointer;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     
     &::before {
         content: "";

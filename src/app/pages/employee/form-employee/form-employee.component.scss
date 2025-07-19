@@ -1,0 +1,46 @@
+.step {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.scan-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.preview img {
+    max-width: 300px;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cedula-data {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:not(:disabled) {
+    background-color: #007bff;
+    color: white;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}

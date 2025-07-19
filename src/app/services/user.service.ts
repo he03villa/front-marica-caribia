@@ -27,4 +27,9 @@ export class UserService {
     const url = `${ environment.urlApi }${ environment.api.login }`;
     return this._service.promise(this._data.metodoPost(url, data));
   }
+
+  async register(data:any) {
+    const url = `${ environment.urlApi }${ environment.api.register }`;
+    return this._service.promise(this._data.metodoPost(url, data));
+  }
 }

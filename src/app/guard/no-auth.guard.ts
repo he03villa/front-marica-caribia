@@ -4,10 +4,15 @@ import { inject } from '@angular/core';
 
 export const noAuthGuard: CanActivateFn = (route, state) => {
   const _service: ServiceService = inject(ServiceService);
-  const user = localStorage.getItem('dataUser') || '';
+  let user = localStorage.getItem('dataUser') || '';
   if (user == '') {
     return true;
   }
-  _service.url('/dashboard');
+  let userParse = JSON.parse(user);
+  if (userParse?.perfil == 'contador') {
+    _service.url('/clients');
+  } else {
+    _service.url('/dashboard');
+  }
   return false;
 };
